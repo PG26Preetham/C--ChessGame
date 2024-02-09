@@ -1,0 +1,6 @@
+Tasks:
+Make Board 
+Make Pieces Logic Work
+Make a Check checker :)
+Make Visual Work(Print the board)
+Make Teams
