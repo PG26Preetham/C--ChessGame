@@ -12,6 +12,11 @@ namespace c_TEXTChess
         Black
     }
 
+    public struct Grid
+    {
+
+    }
+
 
     internal class BasePiece
     {
