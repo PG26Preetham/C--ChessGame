@@ -9,11 +9,25 @@ namespace c_TEXTChess
     // Board class to represent the the board display and coordinates
     internal class Board
     {
-        public int[,] BoardArray()
+        //
+        List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
+
+        public BasePiece FindPieceAtGrid(Grid grid)
         {
-            // initial comment
-            return int;
+            for(int i=0; i<AllPiecesOnBoard.Count; i++)
+            {
+                if (AllPiecesOnBoard[i].currentPos.x==grid.x && AllPiecesOnBoard[i].currentPos.y==grid.y)
+                {
+                    return AllPiecesOnBoard[i];
+                }
+            }
+            return null;
         }
+        //public int[,] BoardArray()
+        //{
+        //    // initial comment
+        //   // return int;
+        //}
 
 
     }

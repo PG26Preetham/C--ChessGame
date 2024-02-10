@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj": {}
+    "D:\\Term1\\c#\\ChessGameRepo\\C--ChessGame\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj": {
+    "D:\\Term1\\c#\\ChessGameRepo\\C--ChessGame\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
+        "projectUniqueName": "D:\\Term1\\c#\\ChessGameRepo\\C--ChessGame\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
         "projectName": "c#TEXTChess",
-        "projectPath": "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
-        "packagesPath": "C:\\Users\\pg26max\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\obj\\",
+        "projectPath": "D:\\Term1\\c#\\ChessGameRepo\\C--ChessGame\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
+        "packagesPath": "C:\\Users\\PG26Preetham\\.nuget\\packages\\",
+        "outputPath": "D:\\Term1\\c#\\ChessGameRepo\\C--ChessGame\\c#TEXTChess\\c#TEXTChess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\pg26max\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PG26Preetham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
