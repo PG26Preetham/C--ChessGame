@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace c_TEXTChess
 {
+    // Board class to represent the the board display and coordinates
     internal class Board
     {
-        // testing initial commit
+        public int[,] BoardArray()
+        {
+            // initial comment
+            return int;
+        }
+
+
     }
 }
