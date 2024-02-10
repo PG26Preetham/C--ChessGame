@@ -24,7 +24,7 @@ namespace c_TEXTChess
             legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + direction));
 
 
-            if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x+1, currentPos.y + direction)).team!=team)
+            if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x+1, currentPos.y + direction)).team != team)
             {
                 legalMove.Add(new Grid().Initialize(currentPos.x+1, currentPos.y + direction));
             }

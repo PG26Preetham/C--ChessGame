@@ -19,18 +19,9 @@ namespace c_TEXTChess
         {
             List<Grid> legalMove = new List<Grid>();
 
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y));
-            //    legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y));
-            //    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + i));
-            //    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y - i));
-            //}
-
-            //max i guess we will have to do the logic for all teh stright line mover like this for queen bishop and rook
-            for (int i = 0;i<8;i++)
+            for (int i = 1; i < 8; i++)
             {
-                if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y))==null)
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y)) == null)
                 {
                     legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y));
                 }
@@ -39,7 +30,7 @@ namespace c_TEXTChess
                     break;
                 }
             }
-            for (int i = 0; i < 8; i++)
+            for (int i = 1; i < 8; i++)
             {
                 if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y)) == null)
                 {
@@ -50,22 +41,22 @@ namespace c_TEXTChess
                     break;
                 }
             }
-            for (int i = 0; i < 8; i++)
+            for (int i = 1; i < 8; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y+1)) == null)
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + i)) == null)
                 {
-                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y+1));
+                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + i));
                 }
                 else
                 {
                     break;
                 }
             }
-            for (int i = 0; i < 8; i++)
+            for (int i = 1; i < 8; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - 1)) == null)
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i)) == null)
                 {
-                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y - 1));
+                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y - i));
                 }
                 else
                 {

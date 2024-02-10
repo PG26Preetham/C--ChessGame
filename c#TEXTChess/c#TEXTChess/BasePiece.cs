@@ -54,17 +54,16 @@ namespace c_TEXTChess
         // Function for checking if the moves are within the board
         protected List<Grid> CheckBounds(List<Grid> legalMove)
         {
-            
             for (int i = legalMove.Count - 1; i > 0; i--) // Iterating backwards to prevent issues caused by RemoveAt()
             {
                 if (legalMove[i].x < 1 || legalMove[i].x > 8 || legalMove[i].y < 1 || legalMove[i].y > 8)
                 {
                     legalMove.RemoveAt(i);
-                }
-                else if (board.FindPieceAtGrid(legalMove[i]).team==team)//made this so if there is a piece of the same team the move is invalid
+                } // Added a null check to prevent crash for now
+                else if ((board.FindPieceAtGrid(legalMove[i]) != null && board.FindPieceAtGrid(legalMove[i]).team == team)) //made this so if there is a piece of the same team the move is invalid
                 {
                     legalMove.RemoveAt(i);
-                }
+                } 
             }
 
             return legalMove;

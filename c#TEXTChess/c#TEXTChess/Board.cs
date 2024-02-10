@@ -14,9 +14,9 @@ namespace c_TEXTChess
 
         public BasePiece FindPieceAtGrid(Grid grid)
         {
-            for(int i=0; i<AllPiecesOnBoard.Count; i++)
+            for (int i = 0; i < AllPiecesOnBoard.Count; i++)
             {
-                if (AllPiecesOnBoard[i].currentPos.x==grid.x && AllPiecesOnBoard[i].currentPos.y==grid.y)
+                if (AllPiecesOnBoard[i].currentPos.x == grid.x && AllPiecesOnBoard[i].currentPos.y == grid.y)
                 {
                     return AllPiecesOnBoard[i];
                 }
