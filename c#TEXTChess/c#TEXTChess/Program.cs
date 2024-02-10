@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace c_TEXTChess
 {
@@ -6,10 +7,13 @@ namespace c_TEXTChess
     {
         static void Main(string[] args)
         {
+
             Console.WriteLine("Hello World!");
 
             Board chessBoard = new Board();
-            chessBoard.DisplayChessBoard();
+            chessBoard.ShowChessBoard();
+            Console.ResetColor();
+
         }
     }
 }
