@@ -8,8 +8,6 @@ namespace c_TEXTChess
 {
     internal class Knight : BasePiece
     {
-
-
         public override bool Move(Grid startPoint, Grid endPoint)
         {
 
@@ -17,12 +15,22 @@ namespace c_TEXTChess
             return true;
         }
 
-        public override Grid[] GetLegalMoves()
+        public override List<Grid> GetLegalMoves()
         {
+            List<Grid> legalMove = new List<Grid>();
 
+            legalMove.Add(new Grid().Initialize(currentPos.x + 2, currentPos.y + 1));
+            legalMove.Add(new Grid().Initialize(currentPos.x + 2, currentPos.y - 1));
+            legalMove.Add(new Grid().Initialize(currentPos.x - 2, currentPos.y + 1));
+            legalMove.Add(new Grid().Initialize(currentPos.x - 2, currentPos.y - 1));
+            legalMove.Add(new Grid().Initialize(currentPos.x + 1, currentPos.y + 2));
+            legalMove.Add(new Grid().Initialize(currentPos.x - 1, currentPos.y + 2));
+            legalMove.Add(new Grid().Initialize(currentPos.x + 1, currentPos.y - 2));
+            legalMove.Add(new Grid().Initialize(currentPos.x - 1, currentPos.y - 2));
 
+            legalMove = CheckBounds(legalMove);
 
-            return new Grid[2];
+            return legalMove;
         }
     }
 }

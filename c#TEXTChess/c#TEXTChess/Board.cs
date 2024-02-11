@@ -10,13 +10,34 @@ namespace c_TEXTChess
 {
     internal class Board
     {
+<<<<<<< HEAD
         public string[,] chessBoard;
 
         public Board()
         {
             // Initializing ChessBoard Constructor
             InitializeChessBoard();
+=======
+        //
+        List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
+
+        public BasePiece FindPieceAtGrid(Grid grid)
+        {
+            for (int i = 0; i < AllPiecesOnBoard.Count; i++)
+            {
+                if (AllPiecesOnBoard[i].currentPos.x == grid.x && AllPiecesOnBoard[i].currentPos.y == grid.y)
+                {
+                    return AllPiecesOnBoard[i];
+                }
+            }
+            return null;
+>>>>>>> origin/Pieces
         }
+        //public int[,] BoardArray()
+        //{
+        //    // initial comment
+        //   // return int;
+        //}
 
         public void ShowChessBoard()
         {
