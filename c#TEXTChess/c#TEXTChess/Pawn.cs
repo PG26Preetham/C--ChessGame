@@ -8,16 +8,16 @@ namespace c_TEXTChess
 {
     internal class Pawn : BasePiece
     {
-        Grid elPesgrid;
-        public bool bHasElPes=false;
+        Grid enPasGrid;
+        public bool bHasEnPas=false;
         
 
-        public void SetElPes()
+        public void SetEnPas()
         {
             int direction = 1;
             if (team == ETeam.Black) { direction = -1; }
-            elPesgrid = new Grid().Initialize(currentPos.x, currentPos.y + direction);
-            bHasElPes = true;
+            enPasGrid = new Grid().Initialize(currentPos.x, currentPos.y + direction);
+            bHasEnPas = true;
         }
         public override List<Grid> GetLegalMoves()
         {
@@ -27,18 +27,16 @@ namespace c_TEXTChess
            
 
             legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + direction));
+
             if(bHasMoved==false)
             {
-                legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + (2*direction)));
-                
+                legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + (2*direction)));         
             }
-
 
             if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x+1, currentPos.y + direction)).team != team)
             {
                 legalMove.Add(new Grid().Initialize(currentPos.x+1, currentPos.y + direction));
             }
-
 
             if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - 1, currentPos.y + direction)).team != team)
             {

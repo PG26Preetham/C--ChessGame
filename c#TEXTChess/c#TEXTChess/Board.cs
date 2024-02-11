@@ -10,7 +10,7 @@ namespace c_TEXTChess
     internal class Board
     {
         //
-        List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
+        public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
         public int BoardSize = 8;
 
 
@@ -31,12 +31,12 @@ namespace c_TEXTChess
                         {
                             if(p.currentPos.x-toLocation.x == 2 || p.currentPos.x - toLocation.x == -2)
                             {
-                                p.SetElPes();
+                                p.SetEnPas();
                             }
                         }
                         else
                         {
-                            p.bHasElPes = false;
+                            p.bHasEnPas = false;
                         }
                     }
                 }
@@ -61,6 +61,20 @@ namespace c_TEXTChess
             }
             return null;
         }
+
+        // Used for kings for checking Checks, checkmate, castle 
+        public bool IsGridSafe(Grid grid, ETeam team)
+        {
+            foreach (BasePiece p in AllPiecesOnBoard)
+            {
+                if (p.team == team) continue;
+
+                if (p.GetLegalMoves().Contains(grid)) return false;
+            }
+
+            return true;
+        }
+
         //public int[,] BoardArray()
         //{
         //    // initial comment

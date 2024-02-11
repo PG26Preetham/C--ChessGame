@@ -35,8 +35,7 @@ namespace c_TEXTChess
         public Grid currentPos { private set; get; }
 
         public Board board;
-
-        public bool bHasMoved {set;  get; }
+        public bool bHasMoved = false;
     
         public void Initialize(ETeam team, Grid startPos ,Board BoardRef)
         {
@@ -44,6 +43,8 @@ namespace c_TEXTChess
             currentPos = startPos;
             board = BoardRef;
             bHasMoved = false;
+
+            board.AllPiecesOnBoard.Add(this);
         }
 
         // I feel like we can remove the "startPos" because it would just be the "currentPos" [Done]
