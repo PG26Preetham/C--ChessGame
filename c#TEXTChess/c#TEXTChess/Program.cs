@@ -1,9 +1,6 @@
 ﻿using System;
-<<<<<<< HEAD
 using System.Security.Cryptography.X509Certificates;
-=======
 using System.Collections.Generic;
->>>>>>> origin/Pieces
 
 namespace c_TEXTChess
 {
@@ -13,15 +10,14 @@ namespace c_TEXTChess
         {
 
             Console.WriteLine("Hello World!");
-
-<<<<<<< HEAD
             Board chessBoard = new Board();
             chessBoard.ShowChessBoard();
             Console.ResetColor();
 
-=======
-            Board board = new Board();
 
+
+/* Commented out just to start working on display
+            Board board = new Board();
             BasePiece testPiece = new Rook();
             testPiece.Initialize(ETeam.Black, new Grid().Initialize(4, 4), board);
 
@@ -33,7 +29,7 @@ namespace c_TEXTChess
                 Console.Write(" , ");
                 Console.WriteLine(legalMoves[i].y);
             }
->>>>>>> origin/Pieces
+*/
         }
     }
 }

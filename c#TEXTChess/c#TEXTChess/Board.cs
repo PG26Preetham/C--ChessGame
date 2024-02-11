@@ -10,15 +10,7 @@ namespace c_TEXTChess
 {
     internal class Board
     {
-<<<<<<< HEAD
-        public string[,] chessBoard;
 
-        public Board()
-        {
-            // Initializing ChessBoard Constructor
-            InitializeChessBoard();
-=======
-        //
         List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
 
         public BasePiece FindPieceAtGrid(Grid grid)
@@ -31,30 +23,40 @@ namespace c_TEXTChess
                 }
             }
             return null;
->>>>>>> origin/Pieces
         }
-        //public int[,] BoardArray()
-        //{
-        //    // initial comment
-        //   // return int;
-        //}
+
+        public string[,] chessBoard;
+
+        public Board()
+        {
+            // Initializing ChessBoard Constructor
+            InitializeChessBoard();
+        }
 
         public void ShowChessBoard()
         {
-            for (int row = 0; row < 8; row++)
+            for (int row = 0; row < 10; row++)
             {
-                for (int col = 0; col < 8; col++)
+                for (int col = 0; col < 10; col++)
                 {
                     int sum = row + col;
+                    // If it's even make the grid White
                     if ((sum % 2) == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.BackgroundColor = ConsoleColor.White;
                     }
+                    // If it's odd make the grid Green
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.BackgroundColor = ConsoleColor.Green;
+                    }
+
+                    // If its border make reset all the colors to console
+                    if (col == 9 || col == 0 || row == 0 || row == 9)
+                    {
+                        Console.ResetColor();
                     }
                     Console.Write(chessBoard[row, col]);
 
@@ -66,6 +68,28 @@ namespace c_TEXTChess
         // Chessboard string
         public void InitializeChessBoard()
         {
+            // Border edge
+            string zZ = BorderEmpty();
+
+            // Border identifier for coordinates
+            string zH = BorderH();
+            string zG = BorderG();
+            string zF = BorderF();
+            string zE = BorderE();
+            string zD = BorderD();
+            string zC = BorderC();
+            string zB = BorderB();
+            string zA = BorderA();
+            string z1 = Border1();
+            string z2 = Border2();
+            string z3 = Border3();
+            string z4 = Border4();
+            string z5 = Border5();
+            string z6 = Border6();
+            string z7 = Border7();
+            string z8 = Border8();
+
+
             // First row
             string h1 = H1();
             string h2 = H2();
@@ -149,16 +173,120 @@ namespace c_TEXTChess
 
             chessBoard = new string[,]
             {
-                { h1, h2, h3, h4, h5, h6, h7, h8 },
-                { g1, g2, g3, g4, g5, g6, g7, g8 },
-                { f1, f2, f3, f4, f5, f6, f7, f8 },
-                { e1, e2, e3, e4, e5, e6, e7, e8 },
-                { d1, d2, d3, d4, d5, d6, d7, d8 },
-                { c1, c2, c3, c4, c5, c6, c7, c8 },
-                { b1, b2, b3, b4, b5, b6, b7, b8 },
-                { a1, a2, a3, a4, a5, a6, a7, a8 },
+                { zZ, zA, zB, zC, zD, zE, zF, zG, zH, zZ },
+                { z8, h1, h2, h3, h4, h5, h6, h7, h8, z8 },
+                { z7, g1, g2, g3, g4, g5, g6, g7, g8, z7 },
+                { z6, f1, f2, f3, f4, f5, f6, f7, f8, z6 },
+                { z5, e1, e2, e3, e4, e5, e6, e7, e8, z5 },
+                { z4, d1, d2, d3, d4, d5, d6, d7, d8, z4 },
+                { z3, c1, c2, c3, c4, c5, c6, c7, c8, z3 },
+                { z2, b1, b2, b3, b4, b5, b6, b7, b8, z2 },
+                { z1, a1, a2, a3, a4, a5, a6, a7, a8, z1 },
+                { zZ, zA, zB, zC, zD, zE, zF, zG, zH, zZ },
             };
 
+        }
+
+        // Display empty border edge
+        public string BorderEmpty()
+        {
+            return "    ";
+        }
+
+        // Display border coordinate for H
+        public string BorderH()
+        {
+            return " h  ";
+        }
+
+        // Display border coordinate for G
+        public string BorderG()
+        {
+            return " g  ";
+        }
+
+        // Display border coordinate for F
+        public string BorderF()
+        {
+            return " f  ";
+        }
+
+        // Display border coordinate for E
+        public string BorderE()
+        {
+            return " e  ";
+        }
+
+        // Display border coordinate for D
+        public string BorderD()
+        {
+            return " d  ";
+        }
+
+        // Display border coordinate for C
+        public string BorderC()
+        {
+            return " c  ";
+        }
+
+        // Display border coordinate for B
+        public string BorderB()
+        {
+            return " b  ";
+        }
+
+        // Display border coordinate for A
+        public string BorderA()
+        {
+            return " a  ";
+        }
+
+        // Display border coordinate for 1
+        public string Border1()
+        {
+            return "  1 ";
+        }
+
+        // Display border coordinate for 2
+        public string Border2()
+        {
+            return "  2 ";
+        }
+
+        // Display border coordinate for 3
+        public string Border3()
+        {
+            return "  3 ";
+        }
+
+        // Display border coordinate for 4
+        public string Border4()
+        {
+            return "  4 ";
+        }
+
+        // Display border coordinate for 5
+        public string Border5()
+        {
+            return "  5 ";
+        }
+
+        // Display border coordinate for 6
+        public string Border6()
+        {
+            return "  6 ";
+        }
+
+        // Display border coordinate for 7
+        public string Border7()
+        {
+            return "  7 ";
+        }
+
+        // Display border coordinate for 8
+        public string Border8()
+        {
+            return "  8 ";
         }
 
         // Display what is on h1
