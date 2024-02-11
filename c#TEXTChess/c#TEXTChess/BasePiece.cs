@@ -35,12 +35,15 @@ namespace c_TEXTChess
         public Grid currentPos { private set; get; }
 
         public Board board;
+
+        public bool bHasMoved {set;  get; }
     
         public void Initialize(ETeam team, Grid startPos ,Board BoardRef)
         {
             this.team = team;
             currentPos = startPos;
             board = BoardRef;
+            bHasMoved = false;
         }
 
         // I feel like we can remove the "startPos" because it would just be the "currentPos" [Done]

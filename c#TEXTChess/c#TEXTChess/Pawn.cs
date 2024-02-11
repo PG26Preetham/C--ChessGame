@@ -16,6 +16,10 @@ namespace c_TEXTChess
             if (team == ETeam.Black) { direction = -1; }
 
             legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + direction));
+            if(bHasMoved==false)
+            {
+                legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + (2*direction)));
+            }
 
 
             if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x+1, currentPos.y + direction)).team != team)

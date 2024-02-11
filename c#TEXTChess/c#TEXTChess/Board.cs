@@ -23,6 +23,7 @@ namespace c_TEXTChess
                     //remove the piece on the board first 
                 }
                 // move the piece to the location
+                piece.bHasMoved = true;
             }
         }
 
