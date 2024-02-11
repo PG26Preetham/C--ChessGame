@@ -22,8 +22,31 @@ namespace c_TEXTChess
                 {
                     //remove the piece on the board first 
                 }
+                try
+                {
+                    Pawn p = (Pawn)piece;
+                    if (p != null)
+                    {
+                        if (!p.bHasMoved)
+                        {
+                            if(p.currentPos.x-toLocation.x == 2 || p.currentPos.x - toLocation.x == -2)
+                            {
+                                p.SetElPes();
+                            }
+                        }
+                        else
+                        {
+                            p.bHasElPes = false;
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+
+                }
                 // move the piece to the location
                 piece.bHasMoved = true;
+              
             }
         }
 

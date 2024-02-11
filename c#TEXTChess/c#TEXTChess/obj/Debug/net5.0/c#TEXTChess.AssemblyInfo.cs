@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("c#TEXTChess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74a41b051cb2ddd01b5952b98197ad2907b88924")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24f5c06aeb9e124cc5f59deb12fcb075a3a1612f")]
 [assembly: System.Reflection.AssemblyProductAttribute("c#TEXTChess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("c#TEXTChess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
