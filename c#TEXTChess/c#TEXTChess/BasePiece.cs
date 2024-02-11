@@ -43,8 +43,21 @@ namespace c_TEXTChess
             board = BoardRef;
         }
 
-        // I feel like we can remove the "startPos" because it would just be the "currentPos"
-        public virtual bool Move(Grid startPos, Grid endPos) { return true; }
+        // I feel like we can remove the "startPos" because it would just be the "currentPos" [Done]
+        public  bool Move(Grid endPos) 
+        {
+            List<Grid> list = new List<Grid>();
+            list = GetLegalMoves();
+            for(int i=0;i<list.Count; i++)
+            {
+                if (list[i].x == endPos.x && list[i].y == endPos.y)
+                {
+                    return true;
+                }
+               
+            }
+            return false;
+        }
 
 
         // Virtual function for finding all legal moves
@@ -56,7 +69,7 @@ namespace c_TEXTChess
         {
             for (int i = legalMove.Count - 1; i > 0; i--) // Iterating backwards to prevent issues caused by RemoveAt()
             {
-                if (legalMove[i].x < 1 || legalMove[i].x > 8 || legalMove[i].y < 1 || legalMove[i].y > 8)
+                if (legalMove[i].x < 1 || legalMove[i].x > board.BoardSize || legalMove[i].y < 1 || legalMove[i].y > board.BoardSize)
                 {
                     legalMove.RemoveAt(i);
                 } // Added a null check to prevent crash for now

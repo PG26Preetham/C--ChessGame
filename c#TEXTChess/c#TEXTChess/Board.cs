@@ -11,6 +11,20 @@ namespace c_TEXTChess
     {
         //
         List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
+        public int BoardSize = 8;
+
+
+        public void MovePiece(BasePiece piece , Grid toLocation)
+        {
+            if(piece.Move(toLocation))
+            {
+                if(FindPieceAtGrid(toLocation)!=null && piece.team != FindPieceAtGrid(toLocation).team)
+                {
+                    //remove the piece on the board first 
+                }
+                // move the piece to the location
+            }
+        }
 
         public BasePiece FindPieceAtGrid(Grid grid)
         {

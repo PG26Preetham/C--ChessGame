@@ -8,13 +8,7 @@ namespace c_TEXTChess
 {
     internal class Pawn : BasePiece
     {
-        public override bool Move(Grid startPoint, Grid endPoint)
-        {
-
-
-            return true;
-        }
-
+     
         public override List<Grid> GetLegalMoves()
         {
             List<Grid> legalMove = new List<Grid>();

@@ -8,12 +8,7 @@ namespace c_TEXTChess
 {
     internal class Knight : BasePiece
     {
-        public override bool Move(Grid startPoint, Grid endPoint)
-        {
-
-
-            return true;
-        }
+       
 
         public override List<Grid> GetLegalMoves()
         {
