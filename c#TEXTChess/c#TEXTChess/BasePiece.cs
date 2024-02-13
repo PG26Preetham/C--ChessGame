@@ -13,6 +13,15 @@ namespace c_TEXTChess
         White = 0,
         Black
     }
+    enum EPieceType
+    {
+        Pawn = 0,
+        Knight,
+        Bishop,
+        Rook,
+        Queen,
+        King
+    }
 
     public struct Grid
     {
@@ -32,19 +41,23 @@ namespace c_TEXTChess
     internal class BasePiece
     {
         public ETeam team { private set; get; }
-        public Grid currentPos { private set; get; }
+        public Grid currentPos { set; get; }
 
         public Board board;
         public bool bHasMoved = false;
-    
-        public void Initialize(ETeam team, Grid startPos ,Board BoardRef)
+
+        public EPieceType type { private set; get; }
+
+        public void Initialize(ETeam team, EPieceType type, Grid startPos, Board BoardRef)
         {
             this.team = team;
+            this.type = type;
             currentPos = startPos;
             board = BoardRef;
             bHasMoved = false;
 
             board.AllPiecesOnBoard.Add(this);
+            board.InitPiece(board, this);
         }
 
         // I feel like we can remove the "startPos" because it would just be the "currentPos" [Done]
