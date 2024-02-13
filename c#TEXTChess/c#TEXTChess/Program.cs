@@ -11,9 +11,9 @@ namespace c_TEXTChess
 
             board.InitBoard(board);
 
-
+            
             board.PrintBoard();
-            Rook whiteRook1 = new Rook();
+            /*Rook whiteRook1 = new Rook();
             Rook whiteRook2 = new Rook();
             King whiteKing = new King();
 
@@ -33,12 +33,17 @@ namespace c_TEXTChess
             }
 
             Console.WriteLine("Player Turn");
-            List<Grid> startEndGrids = GetPlayerMoveInput();
+            
             Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
 
-            Console.Clear();
+            Console.Clear();*/
 
-            board.MovePiece(board.BoardBoxPiece[1, 0], new Grid().Initialize(2, 0));
+            List<Grid> startEndGrids = GetPlayerMoveInput();
+            Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
+            board.MovePiece(startEndGrids[0], startEndGrids[1]);
+
+            Console.ReadLine();
+            Console.Clear();
             board.PrintBoard();
         }
 
@@ -89,8 +94,8 @@ namespace c_TEXTChess
                 }
 
                 // Return a List with Start Position and End Position
-                startEndGrids.Add(new Grid().Initialize(startPosX, startPosY));
-                startEndGrids.Add(new Grid().Initialize(endPosX, endPosY));
+                startEndGrids.Add(new Grid().Initialize(startPosX - 1, startPosY - 1));
+                startEndGrids.Add(new Grid().Initialize(endPosX - 1, endPosY - 1));
 
                 askAgain = false;
             }

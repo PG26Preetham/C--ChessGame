@@ -16,7 +16,7 @@ namespace c_TEXTChess
     enum EPieceType
     {
         Pawn = 0,
-        Knight,
+        Night,
         Bishop,
         Rook,
         Queen,

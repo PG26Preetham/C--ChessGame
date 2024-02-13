@@ -46,10 +46,10 @@ namespace c_TEXTChess
             new Rook().Initialize(ETeam.White, EPieceType.Rook, new Grid().Initialize(7, 7), board);
 
             //init Knight
-            new Knight().Initialize(ETeam.Black, EPieceType.Knight, new Grid().Initialize(0, 1), board);
-            new Knight().Initialize(ETeam.Black, EPieceType.Knight, new Grid().Initialize(0, 6), board);
-            new Knight().Initialize(ETeam.White, EPieceType.Knight, new Grid().Initialize(7, 1), board);
-            new Knight().Initialize(ETeam.White, EPieceType.Knight, new Grid().Initialize(7, 6), board);
+            new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 1), board);
+            new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 6), board);
+            new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 1), board);
+            new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);
 
             //initBishopt
             new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
@@ -67,11 +67,11 @@ namespace c_TEXTChess
         
         public void PrintBoard()
         {
-            for(int i = 0;i < 8;i++)
+            for(int i = 0; i < 8; i++)
             {
-                for (int j = 0;j < 8;j++)
+                for (int j = 0; j < 8; j++)
                 {
-                    if (BoardBoxPiece[i,j] != null) 
+                    if (BoardBoxPiece[i, j] != null) 
                     {
                         Console.Write("\t{0}\t",BoardBoxPiece[i, j].type.ToString()[0]);
                     }
@@ -84,11 +84,14 @@ namespace c_TEXTChess
             }
         }
       
-        public void MovePiece(BasePiece piece , Grid toLocation)
+        public void MovePiece(Grid fromLocation , Grid toLocation)
         {
+            BasePiece piece = BoardBoxPiece[fromLocation.x, fromLocation.y];
+
             if(piece.Move(toLocation))
             {
-                if(FindPieceAtGrid(toLocation)!=null && piece.team != FindPieceAtGrid(toLocation).team)
+              
+                if(FindPieceAtGrid(toLocation) != null && piece.team != FindPieceAtGrid(toLocation).team)
                 {
                     //remove the piece on the board first 
                 }
@@ -121,7 +124,7 @@ namespace c_TEXTChess
 
                 BoardBoxPiece[swapGrid.x, swapGrid.y] = null;
 
-                BoardBoxPiece[toLocation.x, toLocation.y]= piece;
+                BoardBoxPiece[toLocation.x, toLocation.y] = piece;
 
 
                 piece.bHasMoved = true;
