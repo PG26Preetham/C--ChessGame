@@ -40,7 +40,7 @@ namespace c_TEXTChess
 
             List<Grid> startEndGrids = GetPlayerMoveInput();
             Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
-            board.MovePiece(startEndGrids[0], startEndGrids[1]);
+            board.WasMoveValid(startEndGrids[0], startEndGrids[1]);
 
             Console.ReadLine();
             Console.Clear();

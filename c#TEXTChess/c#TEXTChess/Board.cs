@@ -16,6 +16,8 @@ namespace c_TEXTChess
         public BoxBase[,] BoardBoxes=new BoxBase[8,8];
         public BasePiece[,] BoardBoxPiece = new BasePiece[8,8];
 
+        public King whiteKing, blackKing;
+
 
         public Board()
         {
@@ -59,10 +61,12 @@ namespace c_TEXTChess
 
             //intKing and Queen
             new King().Initialize(ETeam.Black, EPieceType.King, new Grid().Initialize(0, 4), board);
+            blackKing =(King) board.FindPieceAtGrid(new Grid().Initialize(0, 4));
             new Queen().Initialize(ETeam.Black, EPieceType.Queen, new Grid().Initialize(0, 3), board);
 
-            new King().Initialize(ETeam.White, EPieceType.King, new Grid().Initialize(7, 3), board);
-            new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 4), board);
+            new King().Initialize(ETeam.White, EPieceType.King, new Grid().Initialize(7, 4), board);
+            blackKing = (King)board.FindPieceAtGrid(new Grid().Initialize(7, 4));
+            new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);
         }
         
         public void PrintBoard()
@@ -83,57 +87,68 @@ namespace c_TEXTChess
                 Console.WriteLine();
             }
         }
-      
-        public void MovePiece(Grid fromLocation , Grid toLocation)
+        public bool WasMoveValid(Grid startPos, Grid targetPos)
         {
-            BasePiece piece = BoardBoxPiece[fromLocation.x, fromLocation.y];
+            BasePiece piece = BoardBoxPiece[startPos.x, startPos.y];
+            BasePiece targetPiece = null;
 
-            if(piece.CanMove(toLocation))
+            if (piece.CanMove(targetPos))
             {
-              
-                if(FindPieceAtGrid(toLocation) != null && piece.team != FindPieceAtGrid(toLocation).team)
+                // If there's an enemy piece on the grid,
+                if (FindPieceAtGrid(targetPos) != null && piece.team != FindPieceAtGrid(targetPos).team)
                 {
                     //remove the piece on the board first 
+
+                    targetPiece = BoardBoxPiece[targetPos.x, targetPos.y];
                 }
 
-                //try
-                //{
-                //    Pawn p = (Pawn)piece;
-                //    if (p != null)
-                //    {
-                //        if (!p.bHasMoved)
-                //        {
-                //            if(p.currentPos.x-toLocation.x == 2 || p.currentPos.x - toLocation.x == -2)
-                //            {
-                //                p.SetEnPas();
-                //            }
-                //        }
-                //        else
-                //        {
-                //            p.bHasEnPas = false;
-                //        }
-                //    }
-                //}
-                //catch(Exception e)
-                //{
+                // Move Piece
+                piece.currentPos = targetPos;
 
-                //}
+                // Update board
+                BoardBoxPiece[startPos.x, startPos.y] = null;
+                BoardBoxPiece[targetPos.x, targetPos.y] = piece;
 
-                // move the piece to the location
+                #region Check if moving the piece will result in leaving the team's King in check
+                // if the team's king is in check. revert back
+                if (piece.team == ETeam.White && whiteKing.isBeingChecked)
+                {
+                    // Revert the pieces back
+                    piece.currentPos = startPos;
 
-                piece.currentPos = toLocation;
+                    BoardBoxPiece[startPos.x, startPos.y] = piece;
+                    if (targetPiece != null)
+                    {
+                        BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
+                    }
 
-                BoardBoxPiece[fromLocation.x, fromLocation.y] = null;
+                    Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
+                    return false;
+                }
+                else if (piece.team == ETeam.Black && blackKing.isBeingChecked)
+                {
+                    // Revert the pieces back
+                    piece.currentPos = startPos;
+      
+                    BoardBoxPiece[startPos.x, startPos.y] = piece;
+                    if (targetPiece != null)
+                    {
+                        BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
+                    }
+                    Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
+                    return false;
+                }
+                #endregion
 
-                BoardBoxPiece[toLocation.x, toLocation.y] = piece;
-
-
+                // Went through all move validations 
+                Console.WriteLine("TestLine: Valid Move");
                 piece.bHasMoved = true;
-              
+                return true;
             }
             else
             {
-                Console.WriteLine("Not possible move");
+                Console.WriteLine("TestLine: Invalid Move");
+                return false;
             }
         }
 
@@ -162,10 +177,7 @@ namespace c_TEXTChess
             return true;
         }
 
-        public void ValidateMove()
-        {
 
-        }
 
         //public int[,] BoardArray()
         //{
@@ -176,3 +188,29 @@ namespace c_TEXTChess
 
     }
 }
+
+
+//try
+//{
+//    Pawn p = (Pawn)piece;
+//    if (p != null)
+//    {
+//        if (!p.bHasMoved)
+//        {
+//            if(p.currentPos.x-targetPos.x == 2 || p.currentPos.x - targetPos.x == -2)
+//            {
+//                p.SetEnPas();
+//            }
+//        }
+//        else
+//        {
+//            p.bHasEnPas = false;
+//        }
+//    }
+//}
+//catch(Exception e)
+//{
+
+//}
+
+// move the piece to the location

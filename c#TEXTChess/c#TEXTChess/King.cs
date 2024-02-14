@@ -18,6 +18,10 @@ namespace c_TEXTChess
             {
                 isBeingChecked = true;
             }
+            else
+            {
+                isBeingChecked = false;
+            }
         }
 
         public void CheckCheckmate()
