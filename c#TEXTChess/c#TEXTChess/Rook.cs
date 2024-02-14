@@ -14,9 +14,15 @@ namespace c_TEXTChess
 
             for (int i = 1; i < 8; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y)) == null)
+                
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y)) == null )
                 {
                     legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y));
+                }
+                else if( board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y));
+                    break;
                 }
                 else
                 {
@@ -29,6 +35,11 @@ namespace c_TEXTChess
                 {
                     legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y));
                 }
+                else if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y));
+                    break;
+                }
                 else
                 {
                     break;
@@ -40,6 +51,11 @@ namespace c_TEXTChess
                 {
                     legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + i));
                 }
+                else if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + i)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + i));
+                    break;
+                }
                 else
                 {
                     break;
@@ -47,9 +63,14 @@ namespace c_TEXTChess
             }
             for (int i = 1; i < 8; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i)) == null)
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i)) == null )
                 {
                     legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y - i));
+                }
+                else if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y - i));
+                    break;
                 }
                 else
                 {
