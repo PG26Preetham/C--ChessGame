@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace c_TEXTChess
         public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
         public int BoardSize = 8;
 
-        public BoxBase[,] BoardBoxes=new BoxBase[8,8];
+       
         public BasePiece[,] BoardBoxPiece = new BasePiece[8,8];
 
 
@@ -67,20 +68,62 @@ namespace c_TEXTChess
         
         public void PrintBoard()
         {
-            for(int i = 0; i < 8; i++)
+        
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int k=0;k<3;k++)
                 {
-                    if (BoardBoxPiece[i, j] != null) 
+                    if(k==1)
                     {
-                        Console.Write("\t{0}\t",BoardBoxPiece[i, j].type.ToString()[0]);
+                        for (int j = 0; j < 8; j++)
+                        {
+                            // Creates background color for pieces
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.BackgroundColor = ConsoleColor.Green;
+                            if ((i + j) % 2 == 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.White;
+                            }
+
+                            // Making it look like a better square by adding spaces on top and bottom
+
+                            if (BoardBoxPiece[i, j] != null)
+                            {
+                                if (BoardBoxPiece[i, j].team == 0)  // using an inner if statement becuase couldnt lower team
+                                {
+                                    Console.Write("  w");
+                                }
+                                else
+                                {
+                                    Console.Write("  b");
+                                }
+                                Console.Write("{0}  ", BoardBoxPiece[i, j].type.ToString()[0]);
+                            }
+                            else
+                            {
+                                Console.Write("      ");
+                            }
+                            Console.ResetColor();
+                        }
                     }
                     else
                     {
-                        Console.Write("\t0\t");
+                        for (int j = 0; j < 8; j++)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.BackgroundColor = ConsoleColor.Green;
+                            if ((i + j) % 2 == 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.White;
+                            }
+                            Console.Write("      ");
+                            Console.ResetColor();
+                        }
                     }
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("|");
+                    Console.ResetColor();
                 }
-                Console.WriteLine();
             }
         }
       
