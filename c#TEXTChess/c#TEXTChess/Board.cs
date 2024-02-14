@@ -34,7 +34,7 @@ namespace c_TEXTChess
 
         public void InitBoard(Board board)
         {
-            for (int i = 0; i < 8; i++)
+           for (int i = 0; i < 8; i++)
             {
                 new Pawn().Initialize(ETeam.Black, EPieceType.Pawn, new Grid().Initialize(1, i), board);
                 new Pawn().Initialize(ETeam.White, EPieceType.Pawn, new Grid().Initialize(6, i), board);
