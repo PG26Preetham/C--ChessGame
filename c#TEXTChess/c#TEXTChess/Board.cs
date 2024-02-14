@@ -88,13 +88,14 @@ namespace c_TEXTChess
         {
             BasePiece piece = BoardBoxPiece[fromLocation.x, fromLocation.y];
 
-            if(piece.Move(toLocation))
+            if(piece.CanMove(toLocation))
             {
               
                 if(FindPieceAtGrid(toLocation) != null && piece.team != FindPieceAtGrid(toLocation).team)
                 {
                     //remove the piece on the board first 
                 }
+
                 //try
                 //{
                 //    Pawn p = (Pawn)piece;
@@ -117,12 +118,12 @@ namespace c_TEXTChess
                 //{
 
                 //}
+
                 // move the piece to the location
-                Grid swapGrid = piece.currentPos;
 
                 piece.currentPos = toLocation;
 
-                BoardBoxPiece[swapGrid.x, swapGrid.y] = null;
+                BoardBoxPiece[fromLocation.x, fromLocation.y] = null;
 
                 BoardBoxPiece[toLocation.x, toLocation.y] = piece;
 
@@ -159,6 +160,11 @@ namespace c_TEXTChess
             }
 
             return true;
+        }
+
+        public void ValidateMove()
+        {
+
         }
 
         //public int[,] BoardArray()
