@@ -5,14 +5,12 @@ namespace c_TEXTChess
 {
     internal class Program
     {
+        public static ETeam currentTeam = ETeam.White;
         static void Main(string[] args)
         {
             Board board = new Board();
-
             board.InitBoard(board);
-
-            
-            board.PrintBoard();
+            GameplayLoop(board);
             /*Rook whiteRook1 = new Rook();
             Rook whiteRook2 = new Rook();
             King whiteKing = new King();
@@ -38,13 +36,44 @@ namespace c_TEXTChess
 
             Console.Clear();*/
 
-            List<Grid> startEndGrids = GetPlayerMoveInput();
-            Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
-            board.WasMoveValid(startEndGrids[0], startEndGrids[1]);
+            
 
-            Console.ReadLine();
-            Console.Clear();
-            board.PrintBoard();
+        }
+
+        public static void GameplayLoop(Board board)
+        {
+            while(true)
+            {
+                Console.Clear();
+                board.PrintBoard();
+                List<Grid> startEndGrids = GetPlayerMoveInput();
+                Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
+                if (board.FindPieceAtGrid(startEndGrids[0]).team== currentTeam)
+                {
+                   if( board.MovePiece(startEndGrids[0], startEndGrids[1]))
+                    {
+                        ChangeCurrentTeam();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Not your piece");
+                }
+                Console.WriteLine("Press Enter to continue");
+                Console.ReadLine() ;
+            }
+        }
+
+        public static void ChangeCurrentTeam()
+        {
+            if(currentTeam == ETeam.White)
+            {
+                currentTeam = ETeam.Black;
+            }
+            else
+            {
+                currentTeam = ETeam.White;
+            }
         }
 
         static private List<Grid> GetPlayerMoveInput()
@@ -62,7 +91,7 @@ namespace c_TEXTChess
             while (askAgain)
             {
                 // Prompt Player for Input
-                Console.WriteLine("Please enter a move: (StartPos EndPos)");
+                Console.WriteLine("{0}-> Please enter a move: (StartPos EndPos) ",currentTeam.ToString());
                 string playerInput = Console.ReadLine().ToLower();
                 moveInput = playerInput.ToCharArray();
 
