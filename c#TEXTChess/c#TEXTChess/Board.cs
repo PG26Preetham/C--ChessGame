@@ -13,10 +13,10 @@ namespace c_TEXTChess
         public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
         public int BoardSize = 8;
 
-        public King BlackKing;
-        public King WhiteKing;
+        public King BlackKing = null;
+        public King WhiteKing = null;
 
-        public BoxBase[,] BoardBoxes=new BoxBase[8,8];
+        
         public BasePiece[,] BoardBoxPiece = new BasePiece[8,8];
 
         public King whiteKing, blackKing;
@@ -68,7 +68,7 @@ namespace c_TEXTChess
             new Queen().Initialize(ETeam.Black, EPieceType.Queen, new Grid().Initialize(0, 3), board);
 
             new King().Initialize(ETeam.White, EPieceType.King, new Grid().Initialize(7, 4), board);
-            blackKing = (King)board.FindPieceAtGrid(new Grid().Initialize(7, 4));
+            whiteKing = (King)board.FindPieceAtGrid(new Grid().Initialize(7, 4));
             new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);
         }
         
@@ -118,37 +118,35 @@ namespace c_TEXTChess
 
                 // Move Piece
                 piece.currentPos = targetPos;
-
+               
                 // Update board
                 BoardBoxPiece[startPos.x, startPos.y] = null;
                 BoardBoxPiece[targetPos.x, targetPos.y] = piece;
 
                 #region Check if moving the piece will result in leaving the team's King in check
                 // if the team's king is in check. revert back
-                if (piece.team == ETeam.White && whiteKing.isBeingChecked)
+                
+                
+                if (piece.team == ETeam.White && whiteKing.IsBeingChecked())
                 {
                     // Revert the pieces back
                     piece.currentPos = startPos;
 
                     BoardBoxPiece[startPos.x, startPos.y] = piece;
-                    if (targetPiece != null)
-                    {
-                        BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
-                    }
-
+                   
+                    BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
+                    
                     Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
                     return false;
                 }
-                else if (piece.team == ETeam.Black && blackKing.isBeingChecked)
+                else if (piece.team == ETeam.Black &&  blackKing.IsBeingChecked())
                 {
                     // Revert the pieces back
                     piece.currentPos = startPos;
       
                     BoardBoxPiece[startPos.x, startPos.y] = piece;
-                    if (targetPiece != null)
-                    {
-                        BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
-                    }
+                    BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
+                    
                     Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
                     return false;
                 }
@@ -188,6 +186,7 @@ namespace c_TEXTChess
             {
                 if (p.team == team) continue;
 
+                if (p.type == EPieceType.King) continue;
                 if (p.GetLegalMoves().Contains(grid)) return false;
             }
 

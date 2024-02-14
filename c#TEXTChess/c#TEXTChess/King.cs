@@ -12,16 +12,14 @@ namespace c_TEXTChess
         public bool canKingSideCastle = false;
         public bool canQueenSideCastle = false;
 
-        public void CheckChecks()
+        public bool IsBeingChecked()
         {
             if (!board.IsGridSafe(new Grid().Initialize(currentPos.x, currentPos.y), team))
             {
-                isBeingChecked = true;
+                return true;
             }
-            else
-            {
-                isBeingChecked = false;
-            }
+            return false;
+
         }
 
         public void CheckCheckmate()
@@ -64,13 +62,14 @@ namespace c_TEXTChess
 
             if (!bHasMoved)
             {
-                CheckChecks();
+                IsBeingChecked();
                 CheckCastle();
 
                 if (canKingSideCastle) legalMove.Add(new Grid().Initialize(currentPos.x + 2, currentPos.y));
                 if (canQueenSideCastle) legalMove.Add(new Grid().Initialize(currentPos.x - 2, currentPos.y));
-            } 
+            }
 
+            IsBeingChecked();
             legalMove.Add(new Grid().Initialize(currentPos.x + 1, currentPos.y));
             legalMove.Add(new Grid().Initialize(currentPos.x -1, currentPos.y));
             legalMove.Add(new Grid().Initialize(currentPos.x +1, currentPos.y+1));

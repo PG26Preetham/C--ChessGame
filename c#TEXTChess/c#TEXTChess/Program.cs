@@ -50,7 +50,7 @@ namespace c_TEXTChess
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
                 if (board.FindPieceAtGrid(startEndGrids[0]).team== currentTeam)
                 {
-                   if( board.MovePiece(startEndGrids[0], startEndGrids[1]))
+                   if( board.WasMoveValid(startEndGrids[0], startEndGrids[1]))
                     {
                         ChangeCurrentTeam();
                     }
@@ -59,6 +59,8 @@ namespace c_TEXTChess
                 {
                     Console.WriteLine("Not your piece");
                 }
+                
+                Console.WriteLine(board.whiteKing.isBeingChecked);
                 Console.WriteLine("Press Enter to continue");
                 Console.ReadLine() ;
             }
