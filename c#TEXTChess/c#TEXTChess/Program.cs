@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection.Metadata;
+using System.Text;
 
 namespace c_TEXTChess
 {
@@ -11,33 +14,6 @@ namespace c_TEXTChess
             Board board = new Board();
             board.InitBoard(board);
             GameplayLoop(board);
-            /*Rook whiteRook1 = new Rook();
-            Rook whiteRook2 = new Rook();
-            King whiteKing = new King();
-
-            whiteRook1.Initialize(ETeam.White, EPieceType.Rook, new Grid().Initialize(1, 8), board);
-            whiteRook2.Initialize(ETeam.White, EPieceType.Rook, new Grid().Initialize(8, 8), board);
-            whiteKing.Initialize(ETeam.White, EPieceType.King, new Grid().Initialize(5, 8), board);
-
-            List<Grid> whiteKingLegalMoves = whiteKing.GetLegalMoves();
-
-            Console.WriteLine(whiteKing.canKingSideCastle + " " + whiteKing.canQueenSideCastle);
-
-            for (int i = 0; i < whiteKing.GetLegalMoves().Count; i++)
-            {
-                Console.Write(whiteKingLegalMoves[i].x);
-                Console.Write(" , ");
-                Console.WriteLine(whiteKingLegalMoves[i].y);
-            }
-
-            Console.WriteLine("Player Turn");
-            
-            Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
-
-            Console.Clear();*/
-
-            
-
         }
 
         public static void GameplayLoop(Board board)

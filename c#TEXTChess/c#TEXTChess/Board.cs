@@ -74,31 +74,61 @@ namespace c_TEXTChess
         
         public void PrintBoard()
         {
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int k = 0; k < 3; k++)
                 {
-                    if (BoardBoxPiece[i, j] != null) 
-                    {   
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        if (BoardBoxPiece[i, j].team == ETeam.Black)
+                    if (k == 1)
+                    {
+                        for (int j = 0; j < 8; j++)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            // Creates background color for pieces
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.BackgroundColor = ConsoleColor.Green;
+                            if ((i + j) % 2 == 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.White;
+                            }
+
+                            // Making it look like a better square by adding spaces on top and bottom
+
+                            if (BoardBoxPiece[i, j] != null)
+                            {
+                                if (BoardBoxPiece[i, j].team == 0)  // using an inner if statement becuase couldnt lower team
+                                {
+                                    Console.Write("  w");
+                                }
+                                else
+                                {
+                                    Console.Write("  b");
+                                }
+                                Console.Write("{0}  ", BoardBoxPiece[i, j].type.ToString()[0]);
+                            }
+                            else
+                            {
+                                Console.Write("      ");
+                            }
+                            Console.ResetColor();
                         }
-                        Console.Write("\t{0}\t",BoardBoxPiece[i, j].type.ToString()[0]);
-                        Console.ResetColor();
                     }
                     else
                     {
-                        if((i+j)%2 == 0)
+                        for (int j = 0; j < 8; j++)
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.BackgroundColor = ConsoleColor.Green;
+                            if ((i + j) % 2 == 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.White;
+                            }
+                            Console.Write("      ");
+                            Console.ResetColor();
                         }
-                        Console.Write("\t0\t");
-                        Console.ResetColor();
                     }
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("|");
+                    Console.ResetColor();
                 }
-                Console.WriteLine();
             }
         }
         public bool WasMoveValid(Grid startPos, Grid targetPos)
