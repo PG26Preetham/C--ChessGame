@@ -18,14 +18,25 @@ namespace c_TEXTChess
         static extern int ChangeFont(int FontSize);
 
         public static ETeam currentTeam = ETeam.White;
-        public static void CPPCall()
+        public static void CPPCall(Board board)
         {
-            ChangeFont(20);
+            try
+            {
+                ChangeFont(20);
+                board.hasDll = true;
+            }
+            catch(Exception e) 
+            {
+                Console.WriteLine("Missing ChangeConsole-CPPHelper.dll {0}",e.ToString());
+                board.hasDll = false;
+            }
+            
         }
         static void Main(string[] args)
         {
-            CPPCall();
+            
             Board board = new Board();
+            CPPCall(board);
             Console.OutputEncoding = Encoding.UTF8;
             board.InitBoard(board);
             GameplayLoop(board);

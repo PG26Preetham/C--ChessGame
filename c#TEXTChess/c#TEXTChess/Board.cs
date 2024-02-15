@@ -12,6 +12,7 @@ namespace c_TEXTChess
         //
         public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
         public int BoardSize = 8;
+        public bool hasDll = true;
 
         public King BlackKing = null;
         public King WhiteKing = null;
@@ -105,7 +106,7 @@ namespace c_TEXTChess
 
                             if (BoardBoxPiece[i, j] != null)
                             {
-                                Console.Write("   {0}  ", SwitchPieceIntoText(BoardBoxPiece[i, j].type, BoardBoxPiece[i,j].team));
+                                Console.Write("  {0} ", SwitchPieceIntoText(BoardBoxPiece[i, j].type, BoardBoxPiece[i,j].team));
                                 
                             }
                             else
@@ -156,6 +157,12 @@ namespace c_TEXTChess
         public string SwitchPieceIntoText(EPieceType mpieceType, ETeam mTeam)
         {
             String rStr = "";
+            if(hasDll == false)
+            {
+                rStr =mTeam.ToString()[0]+""+ mpieceType.ToString()[0]+" ";
+                return rStr.ToLower();
+            }
+
             if(mTeam == ETeam.Black)
             {
                 switch(mpieceType)
@@ -204,6 +211,7 @@ namespace c_TEXTChess
                         break;
                 }
             }
+            rStr = " " + rStr+" ";
             return rStr;
         }
         public bool WasMoveValid(Grid startPos, Grid targetPos)
