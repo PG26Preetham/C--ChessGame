@@ -44,7 +44,7 @@ namespace c_TEXTChess
         public Grid currentPos { set; get; }
 
         public Board board;
-        public bool bHasMoved = false;
+        public bool bHasMoved = false; // Checks if move 1 you can move pawn 2 squares
 
         public EPieceType type { private set; get; }
 
@@ -65,7 +65,7 @@ namespace c_TEXTChess
         {
             List<Grid> list = new List<Grid>();
             list = GetLegalMoves();
-            for(int i=0;i<list.Count; i++)
+            for(int i = 0; i < list.Count; i++)
             {
                 if (list[i].x == endPos.x && list[i].y == endPos.y)
                 {

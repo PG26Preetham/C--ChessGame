@@ -8,23 +8,23 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\pg26max\\.nuget\\packages\\": {},
+    "C:\\Users\\PG26Robert\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
+      "projectUniqueName": "C:\\Users\\PG26Robert\\Desktop\\Csharp Project\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
       "projectName": "c#TEXTChess",
-      "projectPath": "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
-      "packagesPath": "C:\\Users\\pg26max\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pg26max\\Desktop\\C# Chess\\c#TEXTChess\\c#TEXTChess\\obj\\",
+      "projectPath": "C:\\Users\\PG26Robert\\Desktop\\Csharp Project\\c#TEXTChess\\c#TEXTChess\\c#TEXTChess.csproj",
+      "packagesPath": "C:\\Users\\PG26Robert\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PG26Robert\\Desktop\\Csharp Project\\c#TEXTChess\\c#TEXTChess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\pg26max\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PG26Robert\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
