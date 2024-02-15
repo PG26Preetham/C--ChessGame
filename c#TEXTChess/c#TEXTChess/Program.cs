@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows;
 
 namespace c_TEXTChess
 {
     internal class Program
     {
         public static ETeam currentTeam = ETeam.White;
+
         static void Main(string[] args)
         {
             Board board = new Board();
             board.InitBoard(board);
             GameplayLoop(board);
+
+            //List<Grid> Qgrid = new List<Grid>();
+            //Qgrid=board.FindPieceAtGrid(new Grid().Initialize(0,3)).GetLegalMoves();
+            //for(int i = 0; i < Qgrid.Count; i++)
+            //{
+            //    Console.WriteLine("{0} - {1}", Qgrid[i].x, Qgrid[i].y);
+            //}
         }
 
         public static void GameplayLoop(Board board)

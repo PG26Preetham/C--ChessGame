@@ -86,7 +86,7 @@ namespace c_TEXTChess
         {
             for (int i = legalMove.Count - 1; i >=0 ; i--) // Iterating backwards to prevent issues caused by RemoveAt()
             {
-                if (legalMove[i].x < 0 || legalMove[i].x > 8 || legalMove[i].y < 0 || legalMove[i].y > 8)
+                if (legalMove[i].x < 0 || legalMove[i].x > 7 || legalMove[i].y < 0 || legalMove[i].y > 7)
                 {
                     legalMove.RemoveAt(i);
                 } // Added a null check to prevent crash for now

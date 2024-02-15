@@ -15,11 +15,100 @@ namespace c_TEXTChess
             List<Grid> legalMove = new List<Grid>();
 
 
+            //for (int i = 1; i < 8; i++)
+            //{
+            //    if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y + i)) == null)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y + 1));
+            //    }
+            //    else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y + i)).team != team)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y + 1));
+            //        break;
+            //    }
+
+            //    else
+            //    {
+            //        break;
+            //    }
+            //}
+            //for (int i = 1; i < 8; i++)
+            //{
+            //    if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y - i)) == null)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y - i));
+            //    }
+            //    else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y - i)).team != team)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y - i));
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        break;
+            //    }
+            //}
+            //for (int i = 1; i < 8; i++)
+            //{
+            //    if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y + i)) == null)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y + i));
+            //    }
+            //    else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y + i)).team != team)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y + i));
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        break;
+            //    }
+            //}
+            //for (int i = 1; i < 8; i++)
+            //{
+            //    if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y - i)) == null)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y - i));
+            //    }
+            //    else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y - i)).team != team)
+            //    {
+            //        legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y - i));
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        break;
+            //    }
+            //}
+            //Console.WriteLine("top right");
+            for (int i = 1; i<8 ; i++)
+            {
+                
+                if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x +i , currentPos.y +i)) == null)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y + i));
+                }
+                else if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x +i , currentPos.y + i)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x+i , currentPos.y + i));
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            //Console.WriteLine("BottomRight");
             for (int i = 1; i < 8; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y + i)) == null)
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y - i)) == null)
                 {
-                    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y + 1));
+                    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y - i));
+                }
+                else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y - i)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y - i));
+                    break;
                 }
                 else
                 {
@@ -28,9 +117,14 @@ namespace c_TEXTChess
             }
             for (int i = 1; i < 8; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y - i)) == null)
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y - i)) == null)
                 {
-                    legalMove.Add(new Grid().Initialize(currentPos.x + i, currentPos.y - i));
+                    legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y - i));
+                }
+                else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y - i)).team != team)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y - i));
+                    break;
                 }
                 else
                 {
@@ -43,16 +137,10 @@ namespace c_TEXTChess
                 {
                     legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y + i));
                 }
-                else
+                else if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y + i)).team != team)
                 {
+                    legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y + i));
                     break;
-                }
-            }
-            for (int i = 1; i < 8; i++)
-            {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y - i)) == null)
-                {
-                    legalMove.Add(new Grid().Initialize(currentPos.x - i, currentPos.y - i));
                 }
                 else
                 {

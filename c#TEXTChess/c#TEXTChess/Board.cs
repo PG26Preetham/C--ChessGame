@@ -39,7 +39,7 @@ namespace c_TEXTChess
 
         public void InitBoard(Board board)
         {
-           for (int i = 0; i < 8; i++)
+          for (int i = 0; i < 8; i++)
             {
                 new Pawn().Initialize(ETeam.Black, EPieceType.Pawn, new Grid().Initialize(1, i), board);
                 new Pawn().Initialize(ETeam.White, EPieceType.Pawn, new Grid().Initialize(6, i), board);
@@ -74,12 +74,23 @@ namespace c_TEXTChess
         
         public void PrintBoard()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("|  ");
+            for(int h=0; h<8; h++)
+            {
+                Console.Write("  {0}   ", (char)('A' + h));
+            }
+            Console.WriteLine();
+            Console.ResetColor();
             for (int i = 0; i < 8; i++)
             {
                 for (int k = 0; k < 3; k++)
                 {
                     if (k == 1)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("{0}  ", 8 - i);
+                        Console.ResetColor();
                         for (int j = 0; j < 8; j++)
                         {
                             // Creates background color for pieces
@@ -110,9 +121,14 @@ namespace c_TEXTChess
                             }
                             Console.ResetColor();
                         }
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("  {0}", 8 - i);
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("|  ");
+                        Console.ResetColor();
                         for (int j = 0; j < 8; j++)
                         {
                             Console.ForegroundColor = ConsoleColor.Black;
@@ -124,12 +140,24 @@ namespace c_TEXTChess
                             Console.Write("      ");
                             Console.ResetColor();
                         }
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.WriteLine("  |");
                     }
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.WriteLine("|");
+                    
+                    
                     Console.ResetColor();
                 }
+
             }
+            
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("|  ");
+            for (int h = 0; h < 8; h++)
+            { 
+                Console.Write("  {0}   ",(char)('A'+h));
+            }
+            Console.WriteLine();
+            Console.ResetColor();
         }
         public bool WasMoveValid(Grid startPos, Grid targetPos)
         {
@@ -142,8 +170,9 @@ namespace c_TEXTChess
                 if (FindPieceAtGrid(targetPos) != null && piece.team != FindPieceAtGrid(targetPos).team)
                 {
                     //remove the piece on the board first 
-
+                    AllPiecesOnBoard.Remove(BoardBoxPiece[targetPos.x, targetPos.y]);
                     targetPiece = BoardBoxPiece[targetPos.x, targetPos.y];
+                    BoardBoxPiece[targetPos.x, targetPos.y] = null;
                 }
 
                 // Move Piece
@@ -165,6 +194,7 @@ namespace c_TEXTChess
                     BoardBoxPiece[startPos.x, startPos.y] = piece;
                    
                     BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
+                    AllPiecesOnBoard.Add(targetPiece);
                     
                     Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
                     return false;
@@ -176,7 +206,8 @@ namespace c_TEXTChess
       
                     BoardBoxPiece[startPos.x, startPos.y] = piece;
                     BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
-                    
+                    AllPiecesOnBoard.Add(targetPiece);
+
                     Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
                     return false;
                 }
