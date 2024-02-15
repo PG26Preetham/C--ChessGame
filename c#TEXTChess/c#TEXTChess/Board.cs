@@ -9,7 +9,6 @@ namespace c_TEXTChess
     // Board class to represent the the board display and coordinates
     internal class Board
     {
-        //
         public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
         public int BoardSize = 8;
         public bool hasDll = true;
@@ -75,12 +74,12 @@ namespace c_TEXTChess
         
         public void PrintBoard()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("|  ");
-            for(int h=0; h<8; h++)
-            {
-                Console.Write("  {0}   ", (char)('A' + h));
-            }
+            //Console.ForegroundColor = ConsoleColor.Red;
+            //Console.Write(" |  ");
+            //for(int h=0; h<8; h++)
+            //{
+            //    Console.Write(" {0}  ", (char)('A' + h));
+            //}
             Console.WriteLine();
             Console.ResetColor();
             for (int i = 0; i < 8; i++)
@@ -90,13 +89,13 @@ namespace c_TEXTChess
                     if (k == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("{0}  ", 8 - i);
+                        Console.Write("{0} ", 8 - i);
                         Console.ResetColor();
                         for (int j = 0; j < 8; j++)
                         {
                             // Creates background color for pieces
                             Console.ForegroundColor = ConsoleColor.Black;
-                            Console.BackgroundColor = ConsoleColor.Green;
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
                             if ((i + j) % 2 == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.White;
@@ -106,36 +105,36 @@ namespace c_TEXTChess
 
                             if (BoardBoxPiece[i, j] != null)
                             {
-                                Console.Write("  {0} ", SwitchPieceIntoText(BoardBoxPiece[i, j].type, BoardBoxPiece[i,j].team));
+                                Console.Write(" {0} ", SwitchPieceIntoText(BoardBoxPiece[i, j].type, BoardBoxPiece[i,j].team));
                                 
                             }
                             else
                             {
-                                Console.Write("      ");
+                                Console.Write("     ");
                             }
                             Console.ResetColor();
                         }
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("  {0}", 8 - i);
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("|  ");
+                        Console.Write("| ");
                         Console.ResetColor();
                         for (int j = 0; j < 8; j++)
                         {
                             Console.ForegroundColor = ConsoleColor.Black;
-                            Console.BackgroundColor = ConsoleColor.Green;
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
                             if ((i + j) % 2 == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.White;
                             }
-                            Console.Write("      ");
+                            Console.Write("     ");
                             Console.ResetColor();
                         }
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine("  |");
+                        Console.WriteLine(" |");
                     }
                     
                     
@@ -143,13 +142,16 @@ namespace c_TEXTChess
                 }
 
             }
-            
+
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("| ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("|  ");
+            
             for (int h = 0; h < 8; h++)
             { 
-                Console.Write("  {0}   ",(char)('A'+h));
+                Console.Write("  {0}  ",(char)('A'+h));
             }
+
             Console.WriteLine();
             Console.ResetColor();
         }
@@ -159,6 +161,7 @@ namespace c_TEXTChess
             String rStr = "";
             if(hasDll == false)
             {
+                // this returns the string is there are no symbols
                 rStr =mTeam.ToString()[0]+""+ mpieceType.ToString()[0]+" ";
                 return rStr.ToLower();
             }
@@ -211,12 +214,14 @@ namespace c_TEXTChess
                         break;
                 }
             }
+            //This returns the symbols
             rStr = " " + rStr+" ";
             return rStr;
         }
         public bool WasMoveValid(Grid startPos, Grid targetPos)
         {
             BasePiece piece = BoardBoxPiece[startPos.x, startPos.y];
+            if(piece == null) return false;
             BasePiece targetPiece = null;
 
             if (piece.CanMove(targetPos))
@@ -287,6 +292,7 @@ namespace c_TEXTChess
         {
             for (int i = 0; i < AllPiecesOnBoard.Count; i++)
             {
+                if (AllPiecesOnBoard[i]== null) continue;
                 if (AllPiecesOnBoard[i].currentPos.x == grid.x && AllPiecesOnBoard[i].currentPos.y == grid.y)
                 {
                     return AllPiecesOnBoard[i];
@@ -300,6 +306,7 @@ namespace c_TEXTChess
         {
             foreach (BasePiece p in AllPiecesOnBoard)
             {
+                if (p==null) continue;
                 if (p.team == team) continue;
                 if (p.type == EPieceType.King) continue; // gotta fix this because im using this function for other pieces too
 

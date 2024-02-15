@@ -14,12 +14,15 @@ namespace c_TEXTChess
 {
     internal class Program
     {
+        // Purpose to import the dll function
         [DllImport("ChangeConsole-CPPHelper.dll", CallingConvention = CallingConvention.StdCall)]
         static extern int ChangeFont(int FontSize);
 
+        // Variable for storing the current team
         public static ETeam currentTeam = ETeam.White;
         public static void CPPCall(Board board)
         {
+            // This block calls the ChangeFont function if the dll file exists or else it displays the error and changes the board
             try
             {
                 ChangeFont(20);
@@ -34,36 +37,29 @@ namespace c_TEXTChess
         }
         static void Main(string[] args)
         {
-            
+            // Creates an instance of board
             Board board = new Board();
-            CPPCall(board);
-            Console.OutputEncoding = Encoding.UTF8;
-            board.InitBoard(board);
-            GameplayLoop(board);
+            CPPCall(board); // Comment to add text symbols, uncomment to add chess pieces
+            Console.OutputEncoding = Encoding.UTF8; // We need to encode this line to get access to Chess Symbols
+            board.InitBoard(board); // Initializes the board
+            GameplayLoop(board); 
 
-            
-            //string a = "\u265F";
-            //Console.WriteLine("♙");
-            //Console.WriteLine(a);
-            //Console.WriteLine("ggg");
-           
-
-            //List<Grid> Qgrid = new List<Grid>();
-            //Qgrid=board.FindPieceAtGrid(new Grid().Initialize(0,3)).GetLegalMoves();
-            //for(int i = 0; i < Qgrid.Count; i++)
-            //{
-            //    Console.WriteLine("{0} - {1}", Qgrid[i].x, Qgrid[i].y);
-            //}
         }
 
+        // Function that handles the base play game loop
         public static void GameplayLoop(Board board)
         {
             while(true)
             {
-                Console.Clear();
+                Console.Clear(); // Resets the board after every move
                 board.PrintBoard();
                 List<Grid> startEndGrids = GetPlayerMoveInput();
+
                 BasePiece attacker = board.FindPieceAtGrid(startEndGrids[0]);
+                if(attacker == null)
+                {
+                    continue;
+                }
 
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
                 if (attacker.team== currentTeam)
@@ -125,7 +121,7 @@ namespace c_TEXTChess
                 string playerInput = Console.ReadLine().ToLower();
                 moveInput = playerInput.ToCharArray();
 
-                // Correct Type Check
+                // Checks for segmentation fault
                 if (moveInput.Length != 5 ||
                     !char.IsLetter(moveInput[0]) ||
                     !char.IsLetter(moveInput[3]) ||
@@ -138,6 +134,8 @@ namespace c_TEXTChess
                 }
 
                 // Convert Char Array to Numbers
+                // startPosY and endPosY represents the letters of chessboard
+                // startPosX and endPosX represents the numbers of chessboard
                 startPosY = ConvertAlphabetToNum(moveInput[0]);
                 endPosY = endPosX = ConvertAlphabetToNum(moveInput[3]);
                 startPosX = 8 - (int.Parse(moveInput[1].ToString()) - 1);
@@ -150,7 +148,7 @@ namespace c_TEXTChess
                     continue;
                 }
 
-                // Return a List with Start Position and End Position
+                // Return a List with Start Position and End Position by getting the index of startPosXY, endPosXY
                 startEndGrids.Add(new Grid().Initialize(startPosX - 1, startPosY - 1));
                 startEndGrids.Add(new Grid().Initialize(endPosX - 1, endPosY - 1));
 
