@@ -310,7 +310,11 @@ namespace c_TEXTChess
                 if (p.team == team) continue;
                 if (p.type == EPieceType.King) continue; // gotta fix this because im using this function for other pieces too
 
-                if (p.GetLegalMoves().Contains(grid)) return false;
+                if (p.GetLegalMoves().Contains(grid))
+                {
+                    Console.WriteLine($"{p.team} {p.type} can capture the square");
+                    return false;
+                }
             }
 
             return true;

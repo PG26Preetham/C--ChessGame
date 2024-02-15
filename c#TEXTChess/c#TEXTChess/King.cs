@@ -25,13 +25,26 @@ namespace c_TEXTChess
 
         public bool IsCheckmate(BasePiece attacker)
         {
-            if (!IsBeingChecked()) return false; // If not in check or If King has available moves
-            if (!board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team)) return false; // Enemy attacker can be captured
+            if (!IsBeingChecked())  // If not in check or If King has available moves
+            {
+                Console.WriteLine("CHECKMATE? : NOT IN CHECK");
+                return false;
+            }
+
+            Console.WriteLine(attacker.team);
+
+            if (board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team)) // Enemy attacker can be captured
+            {
+                Console.WriteLine("CHECKMATE? : ENEMY CAN BE CAPTURED");
+
+                return false;
+            }
 
             foreach (Grid grid in GetLegalMoves())
             {
                 if (board.IsGridSafe(grid, team))
                 {
+                    Console.WriteLine("CHECKMATE? : KING HAS AVAILABLE MOVES");
                     return false;
                 }
             }
@@ -46,6 +59,7 @@ namespace c_TEXTChess
                     {
                         if (attacker.GetLegalMoves().Contains(p.GetLegalMoves()[i])) // Checking if any piece can block for attack line to escape check
                         {
+                            Console.WriteLine("CHECKMATE? : ALLY CAN BODY BLOCK FOR KING");
                             return false;
                         }
                     }
