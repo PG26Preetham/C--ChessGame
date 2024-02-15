@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
+using System.Xml;
 
 namespace c_TEXTChess
 {
@@ -34,11 +35,24 @@ namespace c_TEXTChess
                 Console.Clear();
                 board.PrintBoard();
                 List<Grid> startEndGrids = GetPlayerMoveInput();
+                BasePiece attacker = board.FindPieceAtGrid(startEndGrids[0]);
+
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
-                if (board.FindPieceAtGrid(startEndGrids[0]).team== currentTeam)
+                if (attacker.team== currentTeam)
                 {
-                   if( board.WasMoveValid(startEndGrids[0], startEndGrids[1]))
+                   if( board.WasMoveValid(attacker.currentPos, startEndGrids[1]))
                     {
+                        if (attacker.team == ETeam.White && attacker.GetLegalMoves().Contains(board.whiteKing.currentPos))
+                        {
+                            Console.WriteLine($"Check? : {board.whiteKing.IsBeingChecked()}");
+                            Console.WriteLine($"Checkmate? : {board.whiteKing.IsCheckmate(board.FindPieceAtGrid(startEndGrids[0]))}");
+                        }
+                        else if (attacker.team == ETeam.Black && attacker.GetLegalMoves().Contains(board.blackKing.currentPos))
+                        {
+                            Console.WriteLine($"Check? : {board.blackKing.IsBeingChecked()}");
+                            Console.WriteLine($"Checkmate? : {board.blackKing.IsCheckmate(board.FindPieceAtGrid(startEndGrids[0]))}");
+                        }
+
                         ChangeCurrentTeam();
                     }
                 }
@@ -47,7 +61,6 @@ namespace c_TEXTChess
                     Console.WriteLine("Not your piece");
                 }
                 
-                Console.WriteLine(board.whiteKing.isBeingChecked);
                 Console.WriteLine("Press Enter to continue");
                 Console.ReadLine() ;
             }
@@ -84,8 +97,6 @@ namespace c_TEXTChess
                 string playerInput = Console.ReadLine().ToLower();
                 moveInput = playerInput.ToCharArray();
 
-                Console.WriteLine(moveInput[2]);
-
                 // Correct Type Check
                 if (moveInput.Length != 5 ||
                     !char.IsLetter(moveInput[0]) ||
@@ -99,10 +110,10 @@ namespace c_TEXTChess
                 }
 
                 // Convert Char Array to Numbers
-                startPosX = ConvertAlphabetToNum(moveInput[0]);
-                startPosY = int.Parse(moveInput[1].ToString());
-                endPosX = ConvertAlphabetToNum(moveInput[3]);
-                endPosY = int.Parse(moveInput[4].ToString());
+                startPosY = ConvertAlphabetToNum(moveInput[0]);
+                endPosY = endPosX = ConvertAlphabetToNum(moveInput[3]);
+                startPosX = 8 - (int.Parse(moveInput[1].ToString()) - 1);
+                endPosX = 8 - (int.Parse(moveInput[4].ToString()) - 1);
 
                 // In Range Check
                 if (startPosX == 0 || startPosY < 1 || startPosY > 8 || endPosX == 0 || endPosY < 1 || endPosY > 8)

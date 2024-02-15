@@ -8,7 +8,7 @@ namespace c_TEXTChess
 {
     internal class King : BasePiece
     {
-        public bool isBeingChecked = false;
+        
         public bool canKingSideCastle = false;
         public bool canQueenSideCastle = false;
 
@@ -16,20 +16,42 @@ namespace c_TEXTChess
         {
             if (!board.IsGridSafe(new Grid().Initialize(currentPos.x, currentPos.y), team))
             {
+                Console.WriteLine("CHECK");
                 return true;
             }
             return false;
 
         }
 
-        public void CheckCheckmate()
+        public bool IsCheckmate(BasePiece attacker)
         {
+            if (!IsBeingChecked() || GetLegalMoves().Count != 0) return false; // If not in check or If King has available moves
+            if (!board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team)) return false; // Enemy attacker can be captured
 
+            if (attacker.type != EPieceType.Night) // Excluding for the block check since Knight can't be blocked
+            {
+                foreach (BasePiece p in board.AllPiecesOnBoard) 
+                {
+                    if (p.team == team) continue;
+
+                    for (int i = 0; i < p.GetLegalMoves().Count; i++)
+                    {
+                        if (attacker.GetLegalMoves().Contains(p.GetLegalMoves()[i])) // Checking if any piece can block for attack line to escape check
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            // Went through all checks, it's Checkmate
+            Console.WriteLine("Checkmate");
+            return true;
         }
 
         public void CheckCastle()
         {
-            if (bHasMoved || isBeingChecked) return;
+            if (bHasMoved || IsBeingChecked()) return;
 
             for (int i = 1; i < 3; i++)
             {

@@ -246,8 +246,8 @@ namespace c_TEXTChess
             foreach (BasePiece p in AllPiecesOnBoard)
             {
                 if (p.team == team) continue;
+                if (p.type == EPieceType.King) continue; // gotta fix this because im using this function for other pieces too
 
-                if (p.type == EPieceType.King) continue;
                 if (p.GetLegalMoves().Contains(grid)) return false;
             }
 
