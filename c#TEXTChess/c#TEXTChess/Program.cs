@@ -4,21 +4,38 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Xml;
+
 
 namespace c_TEXTChess
 {
     internal class Program
     {
-        public static ETeam currentTeam = ETeam.White;
+        [DllImport("ChangeConsole-CPPHelper.dll", CallingConvention = CallingConvention.StdCall)]
+        static extern int ChangeFont(int FontSize);
 
+        public static ETeam currentTeam = ETeam.White;
+        public static void CPPCall()
+        {
+            ChangeFont(20);
+        }
         static void Main(string[] args)
         {
+            CPPCall();
             Board board = new Board();
+            Console.OutputEncoding = Encoding.UTF8;
             board.InitBoard(board);
             GameplayLoop(board);
+
+            
+            //string a = "\u265F";
+            //Console.WriteLine("♙");
+            //Console.WriteLine(a);
+            //Console.WriteLine("ggg");
+           
 
             //List<Grid> Qgrid = new List<Grid>();
             //Qgrid=board.FindPieceAtGrid(new Grid().Initialize(0,3)).GetLegalMoves();

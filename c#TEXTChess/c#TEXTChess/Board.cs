@@ -105,15 +105,8 @@ namespace c_TEXTChess
 
                             if (BoardBoxPiece[i, j] != null)
                             {
-                                if (BoardBoxPiece[i, j].team == 0)  // using an inner if statement becuase couldnt lower team
-                                {
-                                    Console.Write("  w");
-                                }
-                                else
-                                {
-                                    Console.Write("  b");
-                                }
-                                Console.Write("{0}  ", BoardBoxPiece[i, j].type.ToString()[0]);
+                                Console.Write("   {0}  ", SwitchPieceIntoText(BoardBoxPiece[i, j].type, BoardBoxPiece[i,j].team));
+                                
                             }
                             else
                             {
@@ -158,6 +151,60 @@ namespace c_TEXTChess
             }
             Console.WriteLine();
             Console.ResetColor();
+        }
+
+        public string SwitchPieceIntoText(EPieceType mpieceType, ETeam mTeam)
+        {
+            String rStr = "";
+            if(mTeam == ETeam.Black)
+            {
+                switch(mpieceType)
+                {
+                    case EPieceType.Pawn:
+                        rStr = "\u265F";
+                        break;
+                    case EPieceType.Night:
+                        rStr = "\u265E";
+                        break;
+                    case EPieceType.Bishop:
+                        rStr = "\u265D";
+                        break;
+                    case EPieceType.Rook:
+                        rStr = "\u265C";
+                        break;
+                    case EPieceType.Queen:
+                        rStr = "\u265B";
+                        break;
+                    case EPieceType.King:
+                        rStr = "\u265A";
+                        break;
+                }
+            }
+            else
+            {
+                switch (mpieceType)
+                {
+                    case EPieceType.Pawn:
+                        rStr = "\u2659";
+                        break;
+                    case EPieceType.Night:
+                        rStr = "\u2658";
+                        break;
+                    case EPieceType.Bishop:
+                        rStr = "\u2657";
+                        break;
+                    case EPieceType.Rook:
+                        rStr = "\u2656";
+                        break;
+                    case EPieceType.Queen:
+                        rStr = "\u2655";
+                        break;
+                    case EPieceType.King:
+                        rStr = "\u2654";
+                        break;
+                }
+            }
+            return rStr;
         }
         public bool WasMoveValid(Grid startPos, Grid targetPos)
         {
