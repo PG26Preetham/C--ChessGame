@@ -58,10 +58,12 @@ namespace c_TEXTChess
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
                 //BasePiece attacker = board.FindPieceAtGrid(startEndGrids[0]);
 
-                if (board.FindPieceAtGrid(startEndGrids[0]).team == currentTeam)
+                if (board.FindPieceAtGrid(startEndGrids[0]) == null|| board.FindPieceAtGrid(startEndGrids[0]).team == currentTeam)
                 {
                     if (board.WasMoveValid(startEndGrids[0], startEndGrids[1]))
                     {
+                        Console.WriteLine("Can Kingside Castle?: " + board.whiteKing.canKingSideCastle);
+
                         BasePiece attacker = board.FindPieceAtGrid(startEndGrids[1]);
 
                         if (attacker == null)

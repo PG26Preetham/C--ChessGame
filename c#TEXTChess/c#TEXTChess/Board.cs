@@ -51,16 +51,16 @@ namespace c_TEXTChess
             new Rook().Initialize(ETeam.White, EPieceType.Rook, new Grid().Initialize(7, 7), board);
 
             // init Knight
-            new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 1), board);
+/*            new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 1), board);
             new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 6), board);
             new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 1), board);
-            new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);
+            new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);*/
 
             // initBishopt
-            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
+/*            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
             new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 5), board);
             new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 2), board);
-            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);
+            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);*/
 
             // intKing and Queen
             new King().Initialize(ETeam.Black, EPieceType.King, new Grid().Initialize(0, 4), board);

@@ -33,7 +33,7 @@ namespace c_TEXTChess
 
             Console.WriteLine(attacker.team);
 
-            if (board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team)) // Enemy attacker can be captured
+            if (board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team))// Enemy attacker can be captured
             {
                 Console.WriteLine("CHECKMATE? : ENEMY CAN BE CAPTURED");
 
@@ -73,7 +73,7 @@ namespace c_TEXTChess
 
         public void CheckCastle()
         {
-            if (bHasMoved || IsBeingChecked()) return;
+            if (IsBeingChecked()) return;
 
             for (int i = 1; i < 3; i++)
             {
@@ -110,6 +110,7 @@ namespace c_TEXTChess
                 CheckCastle();
 
                 if (canKingSideCastle) legalMove.Add(new Grid().Initialize(currentPos.x + 2, currentPos.y));
+
                 if (canQueenSideCastle) legalMove.Add(new Grid().Initialize(currentPos.x - 2, currentPos.y));
             }
 
