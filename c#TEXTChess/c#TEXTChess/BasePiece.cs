@@ -61,7 +61,7 @@ namespace c_TEXTChess
         }
 
         // I feel like we can remove the "startPos" because it would just be the "currentPos" [Done]
-        public  bool Move(Grid endPos) 
+        public  bool CanMove(Grid endPos) 
         {
             List<Grid> list = new List<Grid>();
             list = GetLegalMoves();
