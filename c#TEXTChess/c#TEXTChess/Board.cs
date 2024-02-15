@@ -239,7 +239,7 @@ namespace c_TEXTChess
                     piece.currentPos = startPos;
 
                     BoardBoxPiece[startPos.x, startPos.y] = piece;
-                   
+                
                     BoardBoxPiece[targetPos.x, targetPos.y] = targetPiece;
                     AllPiecesOnBoard.Add(targetPiece);
                     

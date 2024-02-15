@@ -47,24 +47,36 @@ namespace c_TEXTChess
 
         public static void GameplayLoop(Board board)
         {
-            while(true)
+            while (true)
             {
                 Console.Clear();
                 board.PrintBoard();
                 List<Grid> startEndGrids = GetPlayerMoveInput();
-                BasePiece attacker = board.FindPieceAtGrid(startEndGrids[0]);
+
 
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
-                if (attacker.team== currentTeam)
+                BasePiece attacker = board.FindPieceAtGrid(startEndGrids[0]);
+
+                if (attacker.team == currentTeam)
                 {
-                   if( board.WasMoveValid(attacker.currentPos, startEndGrids[1]))
+                    if (board.WasMoveValid(startEndGrids[0], startEndGrids[1]))
                     {
-                        if (attacker.team == ETeam.White && attacker.GetLegalMoves().Contains(board.whiteKing.currentPos))
+                        if (attacker == null)
+                        {
+                            Console.WriteLine("Attacker is null. No piece found at the start grid position.");
+                        }
+
+                        if (attacker.team == ETeam.Black && attacker.GetLegalMoves().Contains(board.whiteKing.currentPos))
                         {
                             Console.WriteLine($"Check? : {board.whiteKing.IsBeingChecked()}");
                             Console.WriteLine($"Checkmate? : {board.whiteKing.IsCheckmate(board.FindPieceAtGrid(startEndGrids[0]))}");
+
+                            for (int i = 0; i < board.whiteKing.GetLegalMoves().Count; i++)
+                            {
+                                Console.WriteLine($"Legal move: {board.whiteKing.GetLegalMoves()[i].x}, {board.whiteKing.GetLegalMoves()[i].y}");
+                            }
                         }
-                        else if (attacker.team == ETeam.Black && attacker.GetLegalMoves().Contains(board.blackKing.currentPos))
+                        else if (attacker.team == ETeam.White && attacker.GetLegalMoves().Contains(board.blackKing.currentPos))
                         {
                             Console.WriteLine($"Check? : {board.blackKing.IsBeingChecked()}");
                             Console.WriteLine($"Checkmate? : {board.blackKing.IsCheckmate(board.FindPieceAtGrid(startEndGrids[0]))}");
@@ -77,9 +89,9 @@ namespace c_TEXTChess
                 {
                     Console.WriteLine("Not your piece");
                 }
-                
+
                 Console.WriteLine("Press Enter to continue");
-                Console.ReadLine() ;
+                Console.ReadLine();
             }
         }
 

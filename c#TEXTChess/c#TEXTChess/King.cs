@@ -25,8 +25,16 @@ namespace c_TEXTChess
 
         public bool IsCheckmate(BasePiece attacker)
         {
-            if (!IsBeingChecked() || GetLegalMoves().Count != 0) return false; // If not in check or If King has available moves
+            if (!IsBeingChecked()) return false; // If not in check or If King has available moves
             if (!board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team)) return false; // Enemy attacker can be captured
+
+            foreach (Grid grid in GetLegalMoves())
+            {
+                if (board.IsGridSafe(grid, team))
+                {
+                    return false;
+                }
+            }
 
             if (attacker.type != EPieceType.Night) // Excluding for the block check since Knight can't be blocked
             {
