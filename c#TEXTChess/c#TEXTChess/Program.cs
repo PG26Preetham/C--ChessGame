@@ -28,12 +28,12 @@ namespace c_TEXTChess
                 ChangeFont(20);
                 board.hasDll = true;
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
-                Console.WriteLine("Missing ChangeConsole-CPPHelper.dll {0}",e.ToString());
+                Console.WriteLine("Missing ChangeConsole-CPPHelper.dll {0}", e.ToString());
                 board.hasDll = false;
             }
-            
+
         }
         static void Main(string[] args)
         {
@@ -42,7 +42,7 @@ namespace c_TEXTChess
             CPPCall(board); // Comment to add text symbols, uncomment to add chess pieces
             Console.OutputEncoding = Encoding.UTF8; // We need to encode this line to get access to Chess Symbols
             board.InitBoard(board); // Initializes the board
-            GameplayLoop(board); 
+            GameplayLoop(board);
 
         }
 
@@ -53,12 +53,12 @@ namespace c_TEXTChess
             {
                 Console.Clear(); // Resets the board after every move
                 board.PrintBoard();
-                List<Grid> startEndGrids = GetPlayerMoveInput();           
+                List<Grid> startEndGrids = GetPlayerMoveInput();
 
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
                 //BasePiece attacker = board.FindPieceAtGrid(startEndGrids[0]);
 
-                if (board.FindPieceAtGrid(startEndGrids[0]) == null|| board.FindPieceAtGrid(startEndGrids[0]).team == currentTeam)
+                if (board.FindPieceAtGrid(startEndGrids[0]) == null || board.FindPieceAtGrid(startEndGrids[0]).team == currentTeam)
                 {
                     if (board.WasMoveValid(startEndGrids[0], startEndGrids[1]))
                     {
@@ -71,9 +71,18 @@ namespace c_TEXTChess
                             Console.WriteLine("Attacker is null. No piece found at the start grid position.");
                         }
 
+
+
                         if (attacker.team == ETeam.Black && attacker.GetLegalMoves().Contains(board.whiteKing.currentPos))
                         {
                             Console.WriteLine($"Check? : {board.whiteKing.IsBeingChecked()}");
+
+                            if(board.whiteKing.IsCheckmate(board.FindPieceAtGrid(attacker.currentPos)))
+                            {
+                                PrintWinner(ETeam.Black);
+                                break;
+                            }
+
                             Console.WriteLine($"Checkmate? : {board.whiteKing.IsCheckmate(board.FindPieceAtGrid(attacker.currentPos))}");
 
                             for (int i = 0; i < board.whiteKing.GetLegalMoves().Count; i++)
@@ -85,6 +94,12 @@ namespace c_TEXTChess
                         {
                             Console.WriteLine($"Check? : {board.blackKing.IsBeingChecked()}");
                             Console.WriteLine($"Checkmate? : {board.blackKing.IsCheckmate(board.FindPieceAtGrid(attacker.currentPos))}");
+
+                            if(board.blackKing.IsCheckmate(board.FindPieceAtGrid(attacker.currentPos)))
+                            {
+                                PrintWinner(ETeam.White); break;
+                            }
+
                         }
 
                         ChangeCurrentTeam();
@@ -102,7 +117,7 @@ namespace c_TEXTChess
 
         public static void ChangeCurrentTeam()
         {
-            if(currentTeam == ETeam.White)
+            if (currentTeam == ETeam.White)
             {
                 currentTeam = ETeam.Black;
             }
@@ -127,7 +142,7 @@ namespace c_TEXTChess
             while (askAgain)
             {
                 // Prompt Player for Input
-                Console.WriteLine("{0}-> Please enter a move: (StartPos EndPos) ",currentTeam.ToString());
+                Console.WriteLine("{0}-> Please enter a move: (StartPos EndPos) ", currentTeam.ToString());
                 string playerInput = Console.ReadLine().ToLower();
                 moveInput = playerInput.ToCharArray();
 
@@ -191,6 +206,12 @@ namespace c_TEXTChess
                 default:
                     return 0;
             }
+        }
+
+        static private void PrintWinner(ETeam WinTeam)
+        {
+            //Console.Clear();
+            Console.WriteLine("{0} Wins!!!!!!", WinTeam);
         }
     }
 }

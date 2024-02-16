@@ -25,7 +25,7 @@ namespace c_TEXTChess
 
         public bool IsCheckmate(BasePiece attacker)
         {
-            if (!IsBeingChecked())  // If not in check or If King has available moves
+            if (!IsBeingChecked())  
             {
                 Console.WriteLine("CHECKMATE? : NOT IN CHECK");
                 return false;
@@ -33,7 +33,7 @@ namespace c_TEXTChess
 
             Console.WriteLine(attacker.team);
 
-            if (board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team))// Enemy attacker can be captured
+            if (!board.IsGridSafeForOthers(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team))// Enemy attacker can be captured
             {
                 Console.WriteLine("CHECKMATE? : ENEMY CAN BE CAPTURED");
 
@@ -42,7 +42,7 @@ namespace c_TEXTChess
 
             foreach (Grid grid in GetLegalMoves())
             {
-                if (board.IsGridSafe(grid, team))
+                if (board.IsGridSafe(grid, team)) 
                 {
                     Console.WriteLine("CHECKMATE? : KING HAS AVAILABLE MOVES");
                     return false;
@@ -53,13 +53,26 @@ namespace c_TEXTChess
             {
                 foreach (BasePiece p in board.AllPiecesOnBoard) 
                 {
-                    if (p.team == team) continue;
+                    if (p.team != team) continue;
 
                     for (int i = 0; i < p.GetLegalMoves().Count; i++)
                     {
-                        if (attacker.GetLegalMoves().Contains(p.GetLegalMoves()[i])) // Checking if any piece can block for attack line to escape check
+
+                        // attack position -> king position    - Get the grids for these
+                        // f (attacker.GetLegalMoves().Contains(the grids above))
+
+                        int yDir = currentPos.y - attacker.currentPos.y;
+                        int xDir = currentPos.x - attacker.currentPos.x;
+
+                        
+
+                        Console.WriteLine($"Direction: {yDir} {xDir}");
+
+                        
+                        if (attacker.GetMoveInDirection(yDir, xDir).Contains(p.GetLegalMoves()[i])) // Checking if any piece can block for attack line to escape check
                         {
                             Console.WriteLine("CHECKMATE? : ALLY CAN BODY BLOCK FOR KING");
+                            Console.WriteLine($"Can be bodyblocked by {p.team} {p.type} {p.currentPos.x}, {p.currentPos.y}");
                             return false;
                         }
                     }
@@ -70,6 +83,8 @@ namespace c_TEXTChess
             Console.WriteLine("Checkmate");
             return true;
         }
+
+
 
         public void CheckCastle()
         {

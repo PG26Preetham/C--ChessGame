@@ -76,6 +76,57 @@ namespace c_TEXTChess
             return false;
         }
 
+        public List<Grid> GetMoveInDirection(int xdir, int ydir)
+        {
+            List<Grid> Dirgrids = GetLegalMoves();
+            for(int i = 0;i < Dirgrids.Count;i++)
+            {
+                if(xdir>0)
+                {
+                    if(Dirgrids[i].x < currentPos.x)
+                    {
+                        Dirgrids.RemoveAt(i);
+                    }
+                }
+                else if (xdir < 0)
+                {
+                    if (Dirgrids[i].x > currentPos.x)
+                    {
+                        Dirgrids.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    if (Dirgrids[i].x !=  currentPos.x)
+                    {
+                        Dirgrids.RemoveAt(i);
+                    }
+                }
+                if(ydir>0)
+                {
+                    if (Dirgrids[i].y < currentPos.y)
+                    {
+                        Dirgrids.RemoveAt(i);
+                    }
+                }
+                else if(ydir < 0)
+                {
+                    if (Dirgrids[i].y > currentPos.y)
+                    {
+                        Dirgrids.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    if (Dirgrids[i].y != currentPos.y)
+                    {
+                        Dirgrids.RemoveAt(i);
+                    }
+                }
+            }
+            return Dirgrids;
+        }
+
 
         // Virtual function for finding all legal moves
         public virtual List<Grid> GetLegalMoves() { return new List<Grid>(0); }

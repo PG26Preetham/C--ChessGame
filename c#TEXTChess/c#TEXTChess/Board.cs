@@ -51,16 +51,16 @@ namespace c_TEXTChess
             new Rook().Initialize(ETeam.White, EPieceType.Rook, new Grid().Initialize(7, 7), board);
 
             // init Knight
-/*            new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 1), board);
+            new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 1), board);
             new Knight().Initialize(ETeam.Black, EPieceType.Night, new Grid().Initialize(0, 6), board);
             new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 1), board);
-            new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);*/
+            new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);
 
             // initBishopt
-/*            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
+            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
             new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 5), board);
             new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 2), board);
-            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);*/
+            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);
 
             // intKing and Queen
             new King().Initialize(ETeam.Black, EPieceType.King, new Grid().Initialize(0, 4), board);
@@ -304,11 +304,33 @@ namespace c_TEXTChess
         // Used for kings for checking Checks, checkmate, castle 
         public bool IsGridSafe(Grid grid, ETeam team)
         {
+            if (FindPieceAtGrid(grid) != null)
+            {
+                if (FindPieceAtGrid(grid).team != team) return false;
+            }
+           
+
             foreach (BasePiece p in AllPiecesOnBoard)
             {
                 if (p==null) continue;
                 if (p.team == team) continue;
-                if (p.type == EPieceType.King) continue; // gotta fix this because im using this function for other pieces too
+                if (p.type == EPieceType.King) continue; 
+
+                if (p.GetLegalMoves().Contains(grid))
+                {
+                    return false;
+                }
+            }
+
+            Console.WriteLine("Grid is safe for king");
+            return true;
+        }
+        public bool IsGridSafeForOthers(Grid grid, ETeam team)
+        {
+            foreach (BasePiece p in AllPiecesOnBoard)
+            {
+                if (p == null) continue;
+                if (p.team == team) continue;
 
                 if (p.GetLegalMoves().Contains(grid))
                 {

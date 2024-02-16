@@ -31,7 +31,11 @@ namespace c_TEXTChess
 
             if(bHasMoved==false)
             {
-                legalMove.Add(new Grid().Initialize(currentPos.x + (2 * direction), currentPos.y ));         
+                if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + (2 * direction), currentPos.y))==null)
+                {
+                    legalMove.Add(new Grid().Initialize(currentPos.x + (2 * direction), currentPos.y));
+                }
+                         
             }
             if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x+ direction, currentPos.y + 1 )) != null)
             {
