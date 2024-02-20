@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,28 +89,53 @@ namespace c_TEXTChess
 
         public void CheckCastle()
         {
+            Console.WriteLine("Checking for castles");
             if (IsBeingChecked()) return;
 
+            canKingSideCastle = true;
+            canQueenSideCastle = true;
+
+            // Check if there are any pieces between the king and knights
+            // Queenside Castle
+            for (int i = 1; i < 4; i++)
+            {
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i)) != null)
+                {
+                    Console.WriteLine($"Found {board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i))} piece between {team} king and left rook");
+                    canQueenSideCastle = false;
+                }
+                if (!board.IsGridSafe((new Grid().Initialize(currentPos.x, currentPos.y - i)), team))
+                {
+                    Console.WriteLine("The castling grid is not safe for king");
+                    canQueenSideCastle = false;
+                }
+            }
+
+            // Kingside Castle
             for (int i = 1; i < 3; i++)
             {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - i, currentPos.y)) != null) return;
-                if (!board.IsGridSafe((new Grid().Initialize(currentPos.x - i, currentPos.y)), team)) return;          
-            }
-            for (int i = 1; i < 2; i++)
-            {
-                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + i, currentPos.y)) != null) return;
-                if (!board.IsGridSafe((new Grid().Initialize(currentPos.x + i, currentPos.y)), team)) return;
+                if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + i)) != null) 
+                {
+                    Console.WriteLine($"Found {board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 1))} piece between {team} king and right rook");
+                    canKingSideCastle = false;
+                }
+                if (!board.IsGridSafe((new Grid().Initialize(currentPos.x, currentPos.y + i)), team)) canKingSideCastle = false; 
             }      
 
-            if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - 4, currentPos.y)) != null)
+            // Look for rook
+            // Queenside Castle
+            if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - 4)) != null && canQueenSideCastle)
             {
-                BasePiece p = board.FindPieceAtGrid(new Grid().Initialize(currentPos.x - 4, currentPos.y));
+                Console.WriteLine("Inside A");
+                BasePiece p = board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - 4));
                 if (!p.bHasMoved) canQueenSideCastle = true;
                 
             }
-            if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + 3, currentPos.y)) != null)
+            // Kingside Castle
+            if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 3)) != null && canKingSideCastle)
             {
-                BasePiece p = board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + 3, currentPos.y));
+                Console.WriteLine("Inside B");
+                BasePiece p = board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 3));
                 if (!p.bHasMoved) canKingSideCastle = true;
             }
         }
@@ -119,14 +145,26 @@ namespace c_TEXTChess
         {
             List<Grid> legalMove = new List<Grid>();
 
+            Console.WriteLine("Checking King's legal moves");
+
             if (!bHasMoved)
             {
+                Console.WriteLine($"Checking if {type} can castle");
+
                 IsBeingChecked();
                 CheckCastle();
 
-                if (canKingSideCastle) legalMove.Add(new Grid().Initialize(currentPos.x + 2, currentPos.y));
+                if (canKingSideCastle)
+                {
+                    Console.WriteLine($"{team} King can king side castle");
+                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y + 2));
+                }
 
-                if (canQueenSideCastle) legalMove.Add(new Grid().Initialize(currentPos.x - 2, currentPos.y));
+                if (canQueenSideCastle)
+                {
+                    Console.WriteLine($"{team} King can queen side castle");
+                    legalMove.Add(new Grid().Initialize(currentPos.x, currentPos.y - 2));
+                }
             }
 
             IsBeingChecked();

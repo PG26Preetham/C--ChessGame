@@ -57,19 +57,19 @@ namespace c_TEXTChess
             new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);
 
             // initBishopt
-            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
-            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 5), board);
-            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 2), board);
-            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);
+            /*            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
+                        new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 5), board);
+                        new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 2), board);
+                        new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);*/
 
             // intKing and Queen
             new King().Initialize(ETeam.Black, EPieceType.King, new Grid().Initialize(0, 4), board);
             blackKing =(King) board.FindPieceAtGrid(new Grid().Initialize(0, 4));
-            new Queen().Initialize(ETeam.Black, EPieceType.Queen, new Grid().Initialize(0, 3), board);
+/*            new Queen().Initialize(ETeam.Black, EPieceType.Queen, new Grid().Initialize(0, 3), board);*/
 
             new King().Initialize(ETeam.White, EPieceType.King, new Grid().Initialize(7, 4), board);
             whiteKing = (King)board.FindPieceAtGrid(new Grid().Initialize(7, 4));
-            new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);
+/*            new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);*/
         }
         
         public void PrintBoard()
@@ -218,10 +218,23 @@ namespace c_TEXTChess
             rStr = " " + rStr+" ";
             return rStr;
         }
+
+        public void Move(Grid startPos, Grid targetPos)
+        {
+            BasePiece piece = BoardBoxPiece[startPos.x, startPos.y];
+            BoardBoxPiece[targetPos.x, targetPos.y] = piece;
+            BoardBoxPiece[startPos.x, startPos.y] = null;
+        }
+
         public bool WasMoveValid(Grid startPos, Grid targetPos)
         {
             BasePiece piece = BoardBoxPiece[startPos.x, startPos.y];
-            if(piece == null) return false;
+            if (piece == null)
+            {
+                Console.WriteLine("Piece wasn't found in the start location");
+                return false;
+            } 
+
             BasePiece targetPiece = null;
 
             if (piece.CanMove(targetPos))
@@ -272,6 +285,22 @@ namespace c_TEXTChess
                     return false;
                 }
                 #endregion
+
+                // Castle
+                if (piece.type == EPieceType.King)
+                {
+                    int x = 0;
+                    if (piece.team == ETeam.White) x = 7;
+
+                    if (startPos.y == 4 && targetPos.y == 6)
+                    {
+                        Move(new Grid().Initialize(x, 7), new Grid().Initialize(x, 5));
+                    }
+                    else if (startPos.y == 4 && targetPos.y == 2)
+                    {
+                        Move(new Grid().Initialize(x, 0), new Grid().Initialize(x, 3));
+                    }
+                }
 
                 // Went through all move validations 
                 Console.WriteLine("TestLine: Valid Move");

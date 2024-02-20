@@ -53,6 +53,7 @@ namespace c_TEXTChess
             {
                 Console.Clear(); // Resets the board after every move
                 board.PrintBoard();
+                CheckForCastles(board);
                 List<Grid> startEndGrids = GetPlayerMoveInput();
 
                 Console.WriteLine($"{startEndGrids[0].x}{startEndGrids[0].y} {startEndGrids[1].x}{startEndGrids[1].y}");
@@ -61,8 +62,9 @@ namespace c_TEXTChess
                 if (board.FindPieceAtGrid(startEndGrids[0]) == null || board.FindPieceAtGrid(startEndGrids[0]).team == currentTeam)
                 {
                     if (board.WasMoveValid(startEndGrids[0], startEndGrids[1]))
-                    {
+                    {                   
                         Console.WriteLine("Can Kingside Castle?: " + board.whiteKing.canKingSideCastle);
+                        Console.WriteLine("Can Queenside Castle?: " + board.whiteKing.canQueenSideCastle);
 
                         BasePiece attacker = board.FindPieceAtGrid(startEndGrids[1]);
 
@@ -70,8 +72,6 @@ namespace c_TEXTChess
                         {
                             Console.WriteLine("Attacker is null. No piece found at the start grid position.");
                         }
-
-
 
                         if (attacker.team == ETeam.Black && attacker.GetLegalMoves().Contains(board.whiteKing.currentPos))
                         {
@@ -104,12 +104,17 @@ namespace c_TEXTChess
 
                         ChangeCurrentTeam();
                     }
+                    else
+                    {
+                        Console.WriteLine("Move wasn't valid");
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Not your piece");
                 }
 
+                CheckForCastles(board);
                 Console.WriteLine("Press Enter to continue");
                 Console.ReadLine();
             }
@@ -213,5 +218,12 @@ namespace c_TEXTChess
             //Console.Clear();
             Console.WriteLine("{0} Wins!!!!!!", WinTeam);
         }
+
+        static private void CheckForCastles(Board board)
+        {
+            board.whiteKing.CheckCastle();
+            board.blackKing.CheckCastle();
+        }
+     
     }
 }
