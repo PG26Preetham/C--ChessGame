@@ -39,11 +39,11 @@ namespace c_TEXTChess
 
         public void InitBoard(Board board)
         {
-          for (int i = 0; i < 8; i++)
+/*            for (int i = 0; i < 8; i++)
             {
                 new Pawn().Initialize(ETeam.Black, EPieceType.Pawn, new Grid().Initialize(1, i), board);
                 new Pawn().Initialize(ETeam.White, EPieceType.Pawn, new Grid().Initialize(6, i), board);
-            }
+            }*/
             // init rook
             new Rook().Initialize(ETeam.Black, EPieceType.Rook, new Grid().Initialize(0, 0), board);
             new Rook().Initialize(ETeam.Black, EPieceType.Rook, new Grid().Initialize(0, 7), board);
@@ -57,19 +57,19 @@ namespace c_TEXTChess
             new Knight().Initialize(ETeam.White, EPieceType.Night, new Grid().Initialize(7, 6), board);
 
             // initBishopt
-            /*            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
-                        new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 5), board);
-                        new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 2), board);
-                        new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);*/
+            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 2), board);
+            new Bishop().Initialize(ETeam.Black, EPieceType.Bishop, new Grid().Initialize(0, 5), board);
+            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 2), board);
+            new Bishop().Initialize(ETeam.White, EPieceType.Bishop, new Grid().Initialize(7, 5), board);
 
             // intKing and Queen
             new King().Initialize(ETeam.Black, EPieceType.King, new Grid().Initialize(0, 4), board);
             blackKing =(King) board.FindPieceAtGrid(new Grid().Initialize(0, 4));
-/*            new Queen().Initialize(ETeam.Black, EPieceType.Queen, new Grid().Initialize(0, 3), board);*/
+            new Queen().Initialize(ETeam.Black, EPieceType.Queen, new Grid().Initialize(0, 3), board);
 
             new King().Initialize(ETeam.White, EPieceType.King, new Grid().Initialize(7, 4), board);
             whiteKing = (King)board.FindPieceAtGrid(new Grid().Initialize(7, 4));
-/*            new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);*/
+            new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);
         }
         
         public void PrintBoard()

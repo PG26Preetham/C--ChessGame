@@ -36,10 +36,26 @@ namespace c_TEXTChess
 
             if (!board.IsGridSafeForOthers(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), attacker.team))// Enemy attacker can be captured
             {
-                Console.WriteLine("CHECKMATE? : ENEMY CAN BE CAPTURED");
+                // if king isnt close enough to capture 
+                if (!GetLegalMoves().Contains(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y)))
+                {
+                    Console.WriteLine("CHECKMATE? : ENEMY CAN BE CAPTURED");
 
-                return false;
+                    return false;
+                } 
+                // if king can capture, check if the grid is safe 
+                else if (board.IsGridSafe(new Grid().Initialize(attacker.currentPos.x, attacker.currentPos.y), team))
+                {
+                    Console.WriteLine("NEW DEBUG: King is safe to capture");
+
+                    return false;
+                }
+
+                Console.WriteLine("NEW DEBUG: King is not safe to capture");
             }
+
+            // check if its the king that can capture the attacker
+
 
             foreach (Grid grid in GetLegalMoves())
             {
@@ -67,7 +83,7 @@ namespace c_TEXTChess
 
                         
 
-                        Console.WriteLine($"Direction: {yDir} {xDir}");
+                        Console.WriteLine($"Direction: {xDir} {yDir} ");
 
                         
                         if (attacker.GetMoveInDirection(yDir, xDir).Contains(p.GetLegalMoves()[i])) // Checking if any piece can block for attack line to escape check
@@ -89,7 +105,7 @@ namespace c_TEXTChess
 
         public void CheckCastle()
         {
-            Console.WriteLine("Checking for castles");
+            //Console.WriteLine("Checking for castles");
             if (IsBeingChecked()) return;
 
             canKingSideCastle = true;
@@ -101,12 +117,12 @@ namespace c_TEXTChess
             {
                 if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i)) != null)
                 {
-                    Console.WriteLine($"Found {board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i))} piece between {team} king and left rook");
+                    //Console.WriteLine($"Found {board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - i))} piece between {team} king and left rook");
                     canQueenSideCastle = false;
                 }
                 if (!board.IsGridSafe((new Grid().Initialize(currentPos.x, currentPos.y - i)), team))
                 {
-                    Console.WriteLine("The castling grid is not safe for king");
+                    //Console.WriteLine("The castling grid is not safe for king");
                     canQueenSideCastle = false;
                 }
             }
@@ -116,7 +132,7 @@ namespace c_TEXTChess
             {
                 if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + i)) != null) 
                 {
-                    Console.WriteLine($"Found {board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 1))} piece between {team} king and right rook");
+                    //Console.WriteLine($"Found {board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 1))} piece between {team} king and right rook");
                     canKingSideCastle = false;
                 }
                 if (!board.IsGridSafe((new Grid().Initialize(currentPos.x, currentPos.y + i)), team)) canKingSideCastle = false; 
@@ -126,7 +142,6 @@ namespace c_TEXTChess
             // Queenside Castle
             if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - 4)) != null && canQueenSideCastle)
             {
-                Console.WriteLine("Inside A");
                 BasePiece p = board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y - 4));
                 if (!p.bHasMoved) canQueenSideCastle = true;
                 
@@ -134,7 +149,6 @@ namespace c_TEXTChess
             // Kingside Castle
             if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 3)) != null && canKingSideCastle)
             {
-                Console.WriteLine("Inside B");
                 BasePiece p = board.FindPieceAtGrid(new Grid().Initialize(currentPos.x, currentPos.y + 3));
                 if (!p.bHasMoved) canKingSideCastle = true;
             }
