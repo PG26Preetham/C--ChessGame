@@ -16,7 +16,7 @@ namespace c_TEXTChess
         public King BlackKing = null;
         public King WhiteKing = null;
 
-        
+        public Board RefToBoard=null;
         public BasePiece[,] BoardBoxPiece = new BasePiece[8,8];
 
         public King whiteKing, blackKing;
@@ -39,11 +39,12 @@ namespace c_TEXTChess
 
         public void InitBoard(Board board)
         {
-/*            for (int i = 0; i < 8; i++)
+            RefToBoard = board;
+           for (int i = 0; i < 8; i++)
             {
                 new Pawn().Initialize(ETeam.Black, EPieceType.Pawn, new Grid().Initialize(1, i), board);
                 new Pawn().Initialize(ETeam.White, EPieceType.Pawn, new Grid().Initialize(6, i), board);
-            }*/
+            }
             // init rook
             new Rook().Initialize(ETeam.Black, EPieceType.Rook, new Grid().Initialize(0, 0), board);
             new Rook().Initialize(ETeam.Black, EPieceType.Rook, new Grid().Initialize(0, 7), board);
@@ -284,6 +285,54 @@ namespace c_TEXTChess
                     Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
                     return false;
                 }
+                if (piece.type == EPieceType.Pawn)
+                {
+                    if( (piece.team ==ETeam.Black && targetPos.x==7) || (piece.team == ETeam.White && targetPos.x == 0))
+                    {
+                        EPieceType PromotatePieceType = EPieceType.Pawn;
+                        //BasePiece PromotedPiece = null;
+                        Console.WriteLine("Promotion \n Select One of the following- \n R-Rook\nN-Knight\nB-Bishop\nQ-Queen");
+                        while (true)
+                        {
+                            String Option=Console.ReadLine();
+                            Option = Option.ToUpper();
+                            //bool DoneProperInupt = false;
+                            switch(Option)
+                            {
+                                case "R":
+                                    PromotatePieceType = EPieceType.Rook;
+                                    new Rook().Initialize(piece.team,PromotatePieceType,piece.currentPos,this);
+                                    AllPiecesOnBoard.Add(FindPieceAtGrid(piece.currentPos));
+                                    break;
+                                case "N":
+                                    PromotatePieceType = EPieceType.Night;
+                                    new Knight().Initialize(piece.team, PromotatePieceType, piece.currentPos, this);
+                                    AllPiecesOnBoard.Add(FindPieceAtGrid(piece.currentPos));
+                                    break;
+                                case "B":
+                                    PromotatePieceType = EPieceType.Bishop;
+                                    new Bishop().Initialize(piece.team, PromotatePieceType, piece.currentPos, this);
+                                    AllPiecesOnBoard.Add(FindPieceAtGrid(piece.currentPos));
+                                    break;
+                                case "Q":
+                                    PromotatePieceType = EPieceType.Queen;
+                                    new Queen().Initialize(piece.team, PromotatePieceType, piece.currentPos, this);
+                                    AllPiecesOnBoard.Add(FindPieceAtGrid(piece.currentPos));
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if(PromotatePieceType !=EPieceType.Pawn)
+                            {
+                                break;
+                            }
+                        }
+
+                        AllPiecesOnBoard.Remove(piece);
+                       
+                    }
+                }
+
                 #endregion
 
                 // Castle
