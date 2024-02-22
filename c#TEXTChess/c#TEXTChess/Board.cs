@@ -408,7 +408,7 @@ namespace c_TEXTChess
                 }
             }
 
-            Console.WriteLine("Grid is safe for king");
+           // Console.WriteLine("Grid is safe for king");
             return true;
         }
 
