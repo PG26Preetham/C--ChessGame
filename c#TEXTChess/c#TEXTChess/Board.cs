@@ -9,19 +9,20 @@ namespace c_TEXTChess
     // Board class to represent the the board display and coordinates
     internal class Board
     {
-        public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();
+        public List<BasePiece> AllPiecesOnBoard = new List<BasePiece>();// to store all the active pieces on board
         public int BoardSize = 8;
-        public bool hasDll = true;
+        public bool hasDll = true;// to check if the dll was loaded
 
-        public King BlackKing = null;
+        public King BlackKing = null;//stores the value of the Black king
         public King WhiteKing = null;
 
         public Board RefToBoard=null;
-        public BasePiece[,] BoardBoxPiece = new BasePiece[8,8];
+        public BasePiece[,] BoardBoxPiece = new BasePiece[8,8];//this is the 2d array to store the state of the board
 
         public King whiteKing, blackKing;
 
 
+        //init the board to all null
         public Board()
         {
             for(int i = 0; i < 8; i++)
@@ -37,6 +38,8 @@ namespace c_TEXTChess
             boardRef.BoardBoxPiece[Piece.currentPos.x, Piece.currentPos.y] = Piece;
         }
 
+
+        //this is to set the starting state of the game
         public void InitBoard(Board board)
         {
             RefToBoard = board;
@@ -73,14 +76,9 @@ namespace c_TEXTChess
             new Queen().Initialize(ETeam.White, EPieceType.Queen, new Grid().Initialize(7, 3), board);
         }
         
+        //Function to print the board with ascii code or letters based on if the dll was loaded or not
         public void PrintBoard()
         {
-            //Console.ForegroundColor = ConsoleColor.Red;
-            //Console.Write(" |  ");
-            //for(int h=0; h<8; h++)
-            //{
-            //    Console.Write(" {0}  ", (char)('A' + h));
-            //}
             Console.WriteLine();
             Console.ResetColor();
             for (int i = 0; i < 8; i++)
@@ -157,6 +155,8 @@ namespace c_TEXTChess
             Console.ResetColor();
         }
 
+
+        //this will return a ascii char given the type and team of the piece
         public string SwitchPieceIntoText(EPieceType mpieceType, ETeam mTeam)
         {
             String rStr = "";
@@ -220,6 +220,8 @@ namespace c_TEXTChess
             return rStr;
         }
 
+
+        //This moves a piece without checking other logics (Used for castle)
         public void Move(Grid startPos, Grid targetPos)
         {
             BasePiece piece = BoardBoxPiece[startPos.x, startPos.y];
@@ -227,6 +229,8 @@ namespace c_TEXTChess
             BoardBoxPiece[startPos.x, startPos.y] = null;
         }
 
+
+        //this returns false if the move is not possible and will move the piece and return true is the move is possible
         public bool WasMoveValid(Grid startPos, Grid targetPos)
         {
             BasePiece piece = BoardBoxPiece[startPos.x, startPos.y];
@@ -285,6 +289,8 @@ namespace c_TEXTChess
                     Console.WriteLine($"TestLine: This results in the {piece.team.ToString()} being in check.");
                     return false;
                 }
+
+                //this handles the promotion of a pawn
                 if (piece.type == EPieceType.Pawn)
                 {
                     if( (piece.team ==ETeam.Black && targetPos.x==7) || (piece.team == ETeam.White && targetPos.x == 0))
@@ -366,6 +372,8 @@ namespace c_TEXTChess
             }
         }
 
+
+        //This is a function which returns the piece at a grid
         public BasePiece FindPieceAtGrid(Grid grid)
         {
             for (int i = 0; i < AllPiecesOnBoard.Count; i++)

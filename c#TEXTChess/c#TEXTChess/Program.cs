@@ -37,6 +37,7 @@ namespace c_TEXTChess
         }
         static void Main(string[] args)
         {
+           //BasePiece myPiecedd = new Rook();
             // Creates an instance of board
             Board board = new Board();
             CPPCall(board); // Comment to add text symbols, uncomment to add chess pieces
