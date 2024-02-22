@@ -9,7 +9,7 @@ namespace c_TEXTChess
     internal class Knight : BasePiece
     {
        
-
+        //Overriding the getlegal moves function for posible moves of knight
         public override List<Grid> GetLegalMoves()
         {
             List<Grid> legalMove = new List<Grid>();

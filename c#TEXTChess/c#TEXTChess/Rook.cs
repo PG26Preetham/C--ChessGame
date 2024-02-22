@@ -8,6 +8,9 @@ namespace c_TEXTChess
 {
     internal class Rook : BasePiece
     {
+
+        //Overriding the getlegal moves function for posible moves of Rook
+        //$ loops for each direction
         public override List<Grid> GetLegalMoves()
         {
             List<Grid> legalMove = new List<Grid>();
