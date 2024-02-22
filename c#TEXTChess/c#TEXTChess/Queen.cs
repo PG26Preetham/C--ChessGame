@@ -8,6 +8,9 @@ namespace c_TEXTChess
 {
     internal class Queen : BasePiece
     {
+
+        //Overriding the getlegal moves function for posible moves of Queen
+        //8 loops - 4 for stright lines and 4 for diagonal  movements
         public override List<Grid> GetLegalMoves()
         {
             List<Grid> legalMove = new List<Grid>();

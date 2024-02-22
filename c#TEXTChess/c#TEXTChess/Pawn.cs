@@ -22,12 +22,13 @@ namespace c_TEXTChess
         {
             List<Grid> legalMove = new List<Grid>();
             int direction = -1;
-            if (team == ETeam.Black) { direction = 1; }
+            if (team == ETeam.Black) { direction = 1; }//changing the direction base on the team
             else { direction = -1; }
            
 
             legalMove.Add(new Grid().Initialize(currentPos.x + direction, currentPos.y));
 
+            //Adding extra space to move if it is the first time moving
             if(bHasMoved==false)
             {
                 if(board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + (2 * direction), currentPos.y))==null)
@@ -36,6 +37,7 @@ namespace c_TEXTChess
                 }
                          
             }
+            //to check if the pawn can move to cut a piece
             if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x+ direction, currentPos.y + 1 )) != null)
             {
                 if (board.FindPieceAtGrid(new Grid().Initialize(currentPos.x + direction, currentPos.y + 1)).team != team)
