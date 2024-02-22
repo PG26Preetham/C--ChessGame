@@ -13,6 +13,7 @@ namespace c_TEXTChess
         public bool canKingSideCastle = false;
         public bool canQueenSideCastle = false;
 
+        // function for checking if the current grid is safe for king
         public bool IsBeingChecked()
         {
             if (!board.IsGridSafe(new Grid().Initialize(currentPos.x, currentPos.y), team))
@@ -24,6 +25,7 @@ namespace c_TEXTChess
 
         }
 
+        // Multiple checks for checkmate
         public bool IsCheckmate(BasePiece attacker)
         {
             if (!IsBeingChecked())  
@@ -102,7 +104,7 @@ namespace c_TEXTChess
         }
 
 
-
+        // Checking for castle
         public void CheckCastle()
         {
             //Console.WriteLine("Checking for castles");
@@ -161,11 +163,12 @@ namespace c_TEXTChess
 
             Console.WriteLine("Checking King's legal moves");
 
+            IsBeingChecked();
+
+            // Castle check if king hasnt moved
             if (!bHasMoved)
             {
                 Console.WriteLine($"Checking if {type} can castle");
-
-                IsBeingChecked();
                 CheckCastle();
 
                 if (canKingSideCastle)
@@ -181,7 +184,7 @@ namespace c_TEXTChess
                 }
             }
 
-            IsBeingChecked();
+
             legalMove.Add(new Grid().Initialize(currentPos.x + 1, currentPos.y));
             legalMove.Add(new Grid().Initialize(currentPos.x -1, currentPos.y));
             legalMove.Add(new Grid().Initialize(currentPos.x +1, currentPos.y+1));

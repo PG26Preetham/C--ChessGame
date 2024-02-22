@@ -8,8 +8,6 @@ namespace c_TEXTChess
 {
     internal class Knight : BasePiece
     {
-       
-
         public override List<Grid> GetLegalMoves()
         {
             List<Grid> legalMove = new List<Grid>();

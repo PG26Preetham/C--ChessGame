@@ -9,15 +9,14 @@ namespace c_TEXTChess
     internal class Pawn : BasePiece
     {
         Grid enPasGrid;
-        public bool bHasEnPas=false;
+        public bool canEnPas = false;
         
-
         public void SetEnPas()
         {
             int direction = 1;
             if (team == ETeam.Black) { direction = -1; }
             enPasGrid = new Grid().Initialize(currentPos.x, currentPos.y + direction);
-            bHasEnPas = true;
+            canEnPas = true;
         }
         public override List<Grid> GetLegalMoves()
         {

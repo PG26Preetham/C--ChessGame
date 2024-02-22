@@ -411,6 +411,8 @@ namespace c_TEXTChess
             Console.WriteLine("Grid is safe for king");
             return true;
         }
+
+        // Check if the grid is safe for any piece on the team
         public bool IsGridSafeForOthers(Grid grid, ETeam team)
         {
             foreach (BasePiece p in AllPiecesOnBoard)

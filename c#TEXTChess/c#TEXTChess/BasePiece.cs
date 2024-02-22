@@ -44,7 +44,7 @@ namespace c_TEXTChess
         public Grid currentPos { set; get; }
 
         public Board board;
-        public bool bHasMoved = false; // Checks if move 1 you can move pawn 2 squares
+        public bool bHasMoved = false; // Used for pawn's first move, and castle logic 
 
         public EPieceType type { private set; get; }
 
